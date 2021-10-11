@@ -27,10 +27,11 @@ main {
     background-color: #FFFFFF;
     width: 1100px;
     height: 600px;
+    cursor: crosshair;
 }
 
 button {
-    padding: 0vw 1vw;
+    padding: 0 1vw;
     margin: 1vw;
     height: 50px;
     background-color: #FFFFFF;

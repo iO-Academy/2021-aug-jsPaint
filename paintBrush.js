@@ -5,8 +5,8 @@ const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 
 // Set canvas height in JS to match css height.
-canvas.width = 500;
-canvas.height = 500;
+canvas.width = 1100;
+canvas.height = 600;
 
 function drawLine(event){
     ctx.lineTo(event.offsetX, event.offsetY)
