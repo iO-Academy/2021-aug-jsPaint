@@ -1,0 +1,52 @@
+body, .toolbar, main {
+    display: flex;
+}
+
+.toolbar, main {
+    flex-direction: column;
+}
+
+body {
+    min-height: 50vw;
+}
+
+.toolbar {
+    background-color: #0000FF;
+    width: 150px;
+    padding: 10vw 0;
+}
+
+main {
+    background-color: #A45EE5;
+    width: 90vw;
+    height: 50vw;
+    align-items: center;
+}
+
+.canvas {
+    background-color: #FFFFFF;
+    width: 1100px;
+    height: 600px;
+}
+
+button {
+    padding: 1vw;
+    margin: 1vw;
+    background-color: #FFFFFF;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.painter {
+    background-image: url('paintbrush.png');
+}
+
+.eraser {
+    background-image: url('eraser.png');
+}
+
+h1 {
+    font-family: "Hiragino Maru Gothic Pro";
+    color: #FFFFFF;
+}
