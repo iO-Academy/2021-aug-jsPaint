@@ -6,21 +6,21 @@ body, .toolbar, main {
     flex-direction: column;
 }
 
-body {
-    min-height: 50vw;
+body  {
+    background-color: #A45EE5;
 }
 
 .toolbar {
     background-color: #0000FF;
     width: 150px;
     padding: 10vw 0;
+    height: 100%;
 }
 
 main {
-    background-color: #A45EE5;
     width: 90vw;
-    height: 50vw;
     align-items: center;
+    overflow: auto;
 }
 
 .canvas {
@@ -30,8 +30,9 @@ main {
 }
 
 button {
-    padding: 1vw;
+    padding: 0vw 1vw;
     margin: 1vw;
+    height: 50px;
     background-color: #FFFFFF;
     background-size: contain;
     background-repeat: no-repeat;
@@ -49,4 +50,5 @@ button {
 h1 {
     font-family: "Hiragino Maru Gothic Pro";
     color: #FFFFFF;
+    overflow: hidden;
 }
