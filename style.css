@@ -1,21 +1,23 @@
-body {
+body, #toolbar, main {
     display: flex;
-    /*minwidth: 80vw;*/
+}
+
+#toolbar, main {
+    flex-direction: column;
+}
+
+body {
     min-height: 100vh;
     background-color: black;
 }
 
 #toolbar {
-    display: flex;
-    flex-direction: column;
     background-color: #0000FF;
     width: 150px;
     padding: 10vw 0;
 }
 
-#main {
-    display: flex;
-    flex-direction: column;
+main {
     background-color: #A45EE5;
     width: 90vw;
     height: 100vh;
@@ -31,6 +33,18 @@ body {
 button {
     padding: 1vw;
     margin: 1vw;
+    background-color: #FFFFFF;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#painter {
+    background-image: url('paintbrush.png');
+}
+
+#eraser {
+    background-image: url('eraser.png');
 }
 
 h1 {
