@@ -1,0 +1,13 @@
+* {
+    box-sizing: border-box;
+}
+
+body{
+	background-color: gray;
+}
+
+canvas{
+	background-color: white;
+	width: 500px;
+	height:500px;
+}
