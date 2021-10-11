@@ -2,17 +2,19 @@
     box-sizing: border-box;
 }
 
-body, .toolbar, main {
+body,
+.toolbar,
+main {
     display: flex;
 }
 
-.toolbar, main {
+.toolbar,
+main {
     flex-direction: column;
 }
 
 body  {
     background-color: #A45EE5;
-
 }
 
 .toolbar {
@@ -27,7 +29,6 @@ main {
     align-items: center;
     overflow: auto;
     border: 20px solid #A45EE5;
-
 }
 
 .canvas {
