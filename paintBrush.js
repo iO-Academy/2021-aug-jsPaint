@@ -14,7 +14,7 @@ if (canvas) {
     canvas.addEventListener('mouseleave', stopPainting);
 }
 
-function drawLine(event){
+function drawLine(event) {
     ctx.lineTo(event.offsetX, event.offsetY)
     if (!painting) {
         // When not painting, begin a new path
@@ -33,9 +33,7 @@ function stopPainting() {
 
 function startPainting() {
     painting = true;
-    if (painting) {
-        canvas.classList.add('brush');
-    }
+    canvas.classList.add('brush');
 }
 
 
