@@ -8,6 +8,8 @@ const ctx = canvas.getContext('2d')
 canvas.width = 500;
 canvas.height = 500;
 
+let mode = "brush";
+
 function drawLine(event){
     ctx.lineTo(event.offsetX, event.offsetY)
     if (!painting) {
@@ -17,10 +19,15 @@ function drawLine(event){
     } else {
         // When painting, draw a line to...
         ctx.lineTo(event.offsetX, event.offsetY)
+        if (mode!=="brush") {
+            ctx.strokeStyle = "#FFFFFF";
+        }
         ctx.stroke()
     }
+
 }
 
+let painting = false;
 if (canvas) {
     canvas.addEventListener('mousemove', drawLine);
     // Start painting on click event
@@ -28,9 +35,8 @@ if (canvas) {
     // Stop painting on stopping clicking/off page
     canvas.addEventListener('mouseup', stopPainting);
     canvas.addEventListener('mouseleave', stopPainting);
-}
 
-let painting = false;
+}
 
 function stopPainting() {
     painting = false;
