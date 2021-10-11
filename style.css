@@ -1,8 +1,8 @@
-body, #toolbar, main {
+body, .toolbar, main {
     display: flex;
 }
 
-#toolbar, main {
+.toolbar, main {
     flex-direction: column;
 }
 
@@ -11,7 +11,7 @@ body {
     background-color: black;
 }
 
-#toolbar {
+.toolbar {
     background-color: #0000FF;
     width: 150px;
     padding: 10vw 0;
@@ -24,7 +24,7 @@ main {
     align-items: center;
 }
 
-#canvas {
+.canvas {
     background-color: #FFFFFF;
     width: 1100px;
     height: 600px;
@@ -39,11 +39,11 @@ button {
     background-position: center;
 }
 
-#painter {
+.painter {
     background-image: url('paintbrush.png');
 }
 
-#eraser {
+.eraser {
     background-image: url('eraser.png');
 }
 

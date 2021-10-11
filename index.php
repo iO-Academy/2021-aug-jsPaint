@@ -11,13 +11,13 @@
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div id="toolbar">
-        <button id="painter"></button>
-        <button id="eraser"></button>
+    <div class="toolbar">
+        <button class="painter"></button>
+        <button class="eraser"></button>
     </div>
     <main>
         <h1>Capybara Canvas</h1>
-        <div id="canvas"></div>
+        <div class="canvas"></div>
     </main>
 </body>
 </html>
