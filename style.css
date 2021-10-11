@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 body, .toolbar, main {
     display: flex;
 }
@@ -8,6 +12,7 @@ body, .toolbar, main {
 
 body  {
     background-color: #A45EE5;
+
 }
 
 .toolbar {
@@ -21,12 +26,15 @@ main {
     width: 90vw;
     align-items: center;
     overflow: auto;
+    border: 20px solid #A45EE5;
+
 }
 
 .canvas {
     background-color: #FFFFFF;
     width: 1100px;
     height: 600px;
+    border: 2px solid #000000;
 }
 
 button {
