@@ -2,11 +2,19 @@
 const canvas = document.querySelector('canvas')
 // Sets the canvas to 2D drawing
 const ctx = canvas.getContext('2d')
+const paintbrush = document.querySelector('.painter')
+const eraser = document.querySelector('.eraser')
+let mode = 'brush'
 
-let mode = canvas.classList[1];
-console.log(mode)
+paintbrush.addEventListener('click', function (event) {
+    mode = 'brush'
+})
+
+eraser.addEventListener('click', function (event) {
+    mode = 'eraser'
+})
+
 let painting = false;
-console.log(canvas)
 if (canvas) {
     canvas.addEventListener('mousemove', drawLine);
     // Start painting on click event
@@ -24,7 +32,10 @@ function drawLine(event) {
     } else {
         // When painting, draw a line to...
         ctx.lineTo(event.offsetX, event.offsetY)
-        if (mode!=='brush') {
+        // if the mode is set to eraser, draw white lines
+        if (mode === 'brush') {
+            ctx.strokeStyle = '#000000';
+        } else if (mode === 'eraser') {
             ctx.strokeStyle = '#FFFFFF';
         }
         ctx.stroke()
@@ -47,6 +58,5 @@ function stopPainting() {
 
 function startPainting() {
     painting = true;
-    // canvas.classList.add('brush');
 }
 

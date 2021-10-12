@@ -11,13 +11,13 @@
 <body>
 <div>
     <div class="toolbar" id="toolbar">
-<!--        <button class="painter"></button>-->
-<!--        <button class="eraser"></button>-->
+        <button class="painter"></button>
+        <button class="eraser"></button>
     </div>
     </div>
     <main>
         <h1>Capybara Canvas</h1>
-        <canvas class="canvas brush" width="1100" height="600"></canvas>
+        <canvas class="canvas" width="1100" height="600"></canvas>
     </main>
 </body>
 </html>
