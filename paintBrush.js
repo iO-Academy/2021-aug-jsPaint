@@ -2,7 +2,13 @@
 const canvas = document.querySelector('canvas')
 // Sets the canvas to 2D drawing
 const ctx = canvas.getContext('2d')
+// Sets the connection to paintbrush button
+const paintbrush = document.querySelector('.painter')
+// Sets the connection to the eraser button
+const eraser = document.querySelector('.eraser')
 
+// Sets the default mode to brush and painting to false
+let mode = 'brush'
 let painting = false;
 
 let mode = 'black'
@@ -14,6 +20,7 @@ buttons.forEach(function(button){
 })
 
 if (canvas) {
+    // Add an event listener to draw a line on dragging the mouse
     canvas.addEventListener('mousemove', drawLine);
     // Start painting on click event
     canvas.addEventListener('mousedown', startPainting);
@@ -22,8 +29,12 @@ if (canvas) {
     canvas.addEventListener('mouseleave', stopPainting);
 }
 
+/** Function to disconnect lines when not painting, paint where mouse is when clicking down
+ * Dependant on mode set, use black for brush and white for eraser
+ *
+ * @param event
+ */
 function drawLine(event) {
-    ctx.lineTo(event.offsetX, event.offsetY)
     if (!painting) {
         // When not painting, begin a new path
         ctx.beginPath();
@@ -76,6 +87,7 @@ function startPainting() {
     painting = true;
 }
 
+
 function colourPicker(e){
     mode = e.currentTarget.name
 }
@@ -89,4 +101,5 @@ function clickShow(){
         }
     })
 }
+
 
