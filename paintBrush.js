@@ -8,7 +8,7 @@ const ctx = canvas.getContext('2d')
 canvas.width = 500;
 canvas.height = 500;
 
-let mode = "brush";
+let mode = 'brush';
 
 function drawLine(event){
     ctx.lineTo(event.offsetX, event.offsetY)
@@ -19,8 +19,8 @@ function drawLine(event){
     } else {
         // When painting, draw a line to...
         ctx.lineTo(event.offsetX, event.offsetY)
-        if (mode!=="brush") {
-            ctx.strokeStyle = "#FFFFFF";
+        if (mode!=='brush') {
+            ctx.strokeStyle = '#FFFFFF';
         }
         ctx.stroke()
     }
