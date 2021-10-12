@@ -3,14 +3,12 @@ const canvas = document.querySelector('canvas')
 // Sets the canvas to 2D drawing
 const ctx = canvas.getContext('2d')
 // Sets the connection to paintbrush button
-const paintbrush = document.querySelector('.painter')
+const paintbrush = document.querySelector('.black')
 // Sets the connection to the eraser button
 const eraser = document.querySelector('.eraser')
 
 // Sets the default mode to brush and painting to false
-let mode = 'brush'
 let painting = false;
-
 let mode = 'black'
 
 let buttons = document.querySelectorAll('.mode')
