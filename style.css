@@ -84,4 +84,10 @@ h1 {
 
 .clicked {
     background-image: url('paintbrush.png');
+    border: black solid 5px;
+}
+
+.clicked.eraser {
+    background-image: url('eraser.png');
+    border: black solid 7px;
 }

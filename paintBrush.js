@@ -82,7 +82,7 @@ function colourPicker(e){
 
 function clickShow(){
     buttons.forEach(function(button){
-        if (button.name === mode && button.name !== 'eraser') {
+        if (button.name === mode) {
             button.classList.add('clicked')
         } else if (button.name !== mode) {
             button.classList.remove('clicked')
