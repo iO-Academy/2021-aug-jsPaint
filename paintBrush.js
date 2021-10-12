@@ -5,7 +5,7 @@ const ctx = canvas.getContext('2d')
 
 let painting = false;
 
-let mode = 'painter'
+let mode = 'black'
 
 let buttons = document.querySelectorAll('.mode')
 buttons.forEach(function(button){
@@ -31,7 +31,7 @@ function drawLine(event) {
         // When painting, draw a line to...
         ctx.lineTo(event.offsetX, event.offsetY)
         switch (mode){
-            case 'painter':
+            case 'black':
                 ctx.strokeStyle = '#000000'
                 ctx.lineWidth = 5
                 break

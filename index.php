@@ -11,7 +11,7 @@
 <body>
 <div>
     <div class="toolbar">
-        <button class="mode painter" name="painter"></button>
+        <button class="mode black" name="black"></button>
         <button class="mode eraser" name="eraser"></button>
         <button class="mode red" name="red"></button>
         <button class="mode blue" name="blue"></button>
