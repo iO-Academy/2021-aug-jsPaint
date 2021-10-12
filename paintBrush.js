@@ -33,27 +33,35 @@ function drawLine(event) {
         switch (mode){
             case 'painter':
                 ctx.strokeStyle = '#000000'
+                ctx.lineWidth = 5
                 break
             case 'eraser':
                 ctx.strokeStyle = '#ffffff'
+                ctx.lineWidth = 15
                 break
             case 'red':
                 ctx.strokeStyle = '#ff0000'
+                ctx.lineWidth = 5
                 break
             case 'blue':
                 ctx.strokeStyle = '#0000ff'
+                ctx.lineWidth = 5
                 break
             case 'green':
                 ctx.strokeStyle = '#008000'
+                ctx.lineWidth = 5
                 break
             case 'yellow':
                 ctx.strokeStyle = '#ffff00'
+                ctx.lineWidth = 5
                 break
             case 'orange':
                 ctx.strokeStyle = '#ffa500'
+                ctx.lineWidth = 5
                 break
             default:
                 ctx.strokeStyle = '#000000'
+                ctx.lineWidth = 5
         }
         ctx.stroke()
     }
