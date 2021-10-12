@@ -32,7 +32,7 @@ if (canvas) {
     canvas.addEventListener('mouseleave', stopPainting);
 }
 
-/** Function to disconnect limes when not painting, paint where mouse is when clicking down
+/** Function to disconnect lines when not painting, paint where mouse is when clicking down
  * Dependant on mode set, use black for brush and white for eraser
  *
  * @param event
@@ -48,9 +48,11 @@ function drawLine(event) {
         // If the mode is set to brush, draw in black
         if (mode === 'brush') {
             ctx.strokeStyle = '#000000';
+            ctx.lineWidth = 5;
             // if the mode is set to eraser, draw white lines
         } else if (mode === 'eraser') {
             ctx.strokeStyle = '#FFFFFF';
+            ctx.lineWidth = 15;
         }
         ctx.stroke()
     }
