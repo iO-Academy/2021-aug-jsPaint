@@ -8,14 +8,21 @@ const paintbrush = document.querySelector('.painter')
 const eraser = document.querySelector('.eraser')
 
 // Sets the default mode to brush and painting to false
-let painting = false;
+let painting = false
 let mode = 'black'
+let colourMode = 'black'
+let eraseMode = false
 
 let colours = ['black', 'red', 'blue', 'green', 'yellow', 'orange']
 
 let buttons = document.querySelectorAll('.mode')
 buttons.forEach(function(button){
-    button.addEventListener('click', colourPicker)
+    if(button.name === 'eraser'){
+        button.addEventListener('click', eraseTrue)
+    }else{
+        button.addEventListener('click', colourPicker)
+        button.addEventListener('click', eraseFalse)
+    }
     button.addEventListener('click', clickShow)
 })
 
@@ -42,12 +49,12 @@ function drawLine(event) {
     } else {
         // When painting, draw a line to...
         ctx.lineTo(event.offsetX, event.offsetY)
-        if(mode === 'eraser'){
+        if(eraseMode === true){
             ctx.strokeStyle = 'white'
             ctx.lineWidth = 15
         } else {
             colours.forEach(function (colour) {
-                if (colour === mode) {
+                if (colour === colourMode) {
                     ctx.strokeStyle = colour
                     ctx.lineWidth = 5
                 }
@@ -62,20 +69,30 @@ function stopPainting() {
     painting = false;
 }
 
+function eraseTrue() {
+    eraseMode = true;
+}
+
+function eraseFalse() {
+    eraseMode = false;
+}
+
 function startPainting() {
     painting = true;
 }
 
 
 function colourPicker(e){
-    mode = e.currentTarget.name
+    colourMode = e.currentTarget.name
 }
 
-function clickShow(){
+function clickShow(e){
+    mode = e.currentTarget.name
     buttons.forEach(function(button){
         if (button.name === mode) {
             button.classList.add('clicked')
-        } else if (button.name !== mode) {
+        }
+        else if (button.name !== mode) {
             button.classList.remove('clicked')
         }
     })
