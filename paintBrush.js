@@ -89,14 +89,13 @@ document.querySelector('.print').addEventListener('click', e => {
     e.preventDefault()
     e.stopPropagation()
 
-    // Store DIV contents in the variable.
+    // Store canvas contents in the variable canvasToPrint
     let canvasToPrint = document.querySelector('.canvas')
-    // Create a window object.
+    // Create a window object
     let win = window.open('', '', 'height=700,width=700')
-    // Open the window. Its a popup window.
-    // win.document.write("Hello World");
+    //display the contents of the canvas as an image in the window
     win.document.write("<br><img src = '"+canvasToPrint.toDataURL()+"'/>")
-    // Write contents in the new window.
+    // Print the contents of the window then close it
     win.setTimeout(() => {
         win.print()
         win.close()
