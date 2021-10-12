@@ -41,12 +41,20 @@ main {
 
 button {
     padding: 0 1vw;
-    margin: 1vw;
     height: 50px;
     background-color: #FFFFFF;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+}
+
+button{
+    margin: 10%;
+}
+
+input {
+    width: 80%;
+    margin: 10%;
 }
 
 .painter {
@@ -66,3 +74,4 @@ h1 {
     color: #FFFFFF;
     overflow: hidden;
 }
+
