@@ -36,5 +36,14 @@ function startPainting() {
     canvas.classList.add('brush');
 }
 
+let sizePicker = document.querySelector('#sizeForm')
 
 
+sizePicker.addEventListener('change', sizeChange)
+canvas.width = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.width)
+canvas.height = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.height)
+
+function sizeChange(e){
+    canvas.width = parseInt(e.currentTarget.options[e.currentTarget.selectedIndex].dataset.width)
+    canvas.height = parseInt(e.currentTarget.options[e.currentTarget.selectedIndex].dataset.height)
+}

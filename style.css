@@ -33,8 +33,6 @@ main {
 
 .canvas {
     background-color: #FFFFFF;
-    width: 1100px;
-    height: 600px;
     border: 2px solid #000000;
     cursor: crosshair;
 }
@@ -61,4 +59,9 @@ h1 {
     font-family: "Hiragino Maru Gothic Pro";
     color: #FFFFFF;
     overflow: hidden;
+}
+
+.sizeForm{
+    margin: 1vw;
+    text-align: center;
 }
