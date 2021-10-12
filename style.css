@@ -56,6 +56,25 @@ button {
 .eraser {
     background-image: url('eraser.png');
 }
+.red{
+    background-color: #ff0000;
+}
+
+.blue{
+    background-color: #0000FF;
+}
+
+.green{
+    background-color: #008000;
+}
+
+.yellow{
+    background-color: #ffff00;
+}
+
+.orange{
+    background-color: #ffa500;
+}
 
 h1 {
     font-family: "Hiragino Maru Gothic Pro";

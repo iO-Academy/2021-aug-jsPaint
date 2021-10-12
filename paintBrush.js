@@ -5,6 +5,13 @@ const ctx = canvas.getContext('2d')
 
 let painting = false;
 
+let mode = 'painter'
+
+let buttons = document.querySelectorAll('.mode')
+buttons.forEach(function(button){
+    button.addEventListener('click', colourPicker)
+})
+
 if (canvas) {
     canvas.addEventListener('mousemove', drawLine);
     // Start painting on click event
@@ -23,6 +30,31 @@ function drawLine(event) {
     } else {
         // When painting, draw a line to...
         ctx.lineTo(event.offsetX, event.offsetY)
+        switch (mode){
+            case 'painter':
+                ctx.strokeStyle = '#000000'
+                break
+            case 'eraser':
+                ctx.strokeStyle = '#ffffff'
+                break
+            case 'red':
+                ctx.strokeStyle = '#ff0000'
+                break
+            case 'blue':
+                ctx.strokeStyle = '#0000ff'
+                break
+            case 'green':
+                ctx.strokeStyle = '#008000'
+                break
+            case 'yellow':
+                ctx.strokeStyle = '#ffff00'
+                break
+            case 'orange':
+                ctx.strokeStyle = '#ffa500'
+                break
+            default:
+                ctx.strokeStyle = '#000000'
+        }
         ctx.stroke()
     }
 }
@@ -36,5 +68,8 @@ function startPainting() {
     canvas.classList.add('brush');
 }
 
+function colourPicker(e){
+    mode = e.currentTarget.name
+}
 
 
