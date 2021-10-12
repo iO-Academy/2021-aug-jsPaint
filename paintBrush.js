@@ -84,4 +84,22 @@ document.querySelector('.text').addEventListener('click', e => {
     document.querySelector('#text').setAttribute('type', 'text')
     document.querySelector('#submit').setAttribute('type', 'submit')
 })
+// story 9
+document.querySelector('.print').addEventListener('click', e => {
+    e.preventDefault()
+    // window.document.querySelector('.canvas').print()
+
+    // Store DIV contents in the variable.
+    var canvasToPrint = document.getElementsByClassName('canvas');
+    console.log(canvasToPrint)
+    // Create a window object.
+    var win = window.open('', '', 'height=700,width=700');
+    // Open the window. Its a popup window.
+    // win.document.write("Hello World");
+    win.document.write(canvasToPrint);
+    // Write contents in the new window.
+    win.document.close();
+    win.print();       // Finally, print the contents.
+})
+
 
