@@ -41,7 +41,7 @@ main {
 
 button {
     padding: 0 1vw;
-    height: 50px;
+    min-height: 50px;
     background-color: #FFFFFF;
     background-size: contain;
     background-repeat: no-repeat;
