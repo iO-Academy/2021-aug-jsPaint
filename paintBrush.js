@@ -8,9 +8,7 @@ const paintbrush = document.querySelector('.painter')
 const eraser = document.querySelector('.eraser')
 
 // Sets the default mode to brush and painting to false
-let mode = 'brush'
 let painting = false;
-
 let mode = 'black'
 
 let buttons = document.querySelectorAll('.mode')
