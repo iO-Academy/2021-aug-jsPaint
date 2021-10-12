@@ -48,3 +48,11 @@ document.querySelector('form').addEventListener('submit', e => {
     //place on the canvas
     ctx.fillText(text, 10, 50)
 })
+
+
+
+//when the text button is clicked, it should reveal the text input
+document.querySelector('.text').addEventListener('click', e => {
+    e.preventDefault()
+    document.querySelector('input').setAttribute('type', 'text')
+})
