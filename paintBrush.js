@@ -15,7 +15,7 @@ if (canvas) {
 }
 
 function drawLine(event) {
-    // ctx.lineTo(event.offsetX, event.offsetY)
+    ctx.lineTo(event.offsetX, event.offsetY)
     if (!painting) {
         // When not painting, begin a new path
         ctx.beginPath();
@@ -43,10 +43,8 @@ document.querySelector('form').addEventListener('submit', e => {
     e.preventDefault()
     // created a variable to contain the users text input
     let text = document.querySelector('input').value
-    console.log(text)
     ctx.font = '50px "Hiragino Maru Gothic Pro"'
     //create a fill text function that places the users text input at a set
     //place on the canvas
     ctx.fillText(text, 10, 50)
 })
-
