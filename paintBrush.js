@@ -45,9 +45,10 @@ function drawLine(event) {
     } else {
         // When painting, draw a line to...
         ctx.lineTo(event.offsetX, event.offsetY)
-        // if the mode is set to eraser, draw white lines
+        // If the mode is set to brush, draw in black
         if (mode === 'brush') {
             ctx.strokeStyle = '#000000';
+            // if the mode is set to eraser, draw white lines
         } else if (mode === 'eraser') {
             ctx.strokeStyle = '#FFFFFF';
         }
