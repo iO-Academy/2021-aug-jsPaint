@@ -11,10 +11,11 @@
 <body>
 <div>
     <div class="toolbar">
-<!--        <button class="painter"></button>-->
-<!--        <button class="eraser"></button>-->
+        <button class="painter"></button>
+        <button class="eraser"></button>
+        <button class="text"></button>
         <form>
-            <input type="text" id="text" />
+            <input type="hidden" id="text" />
         </form>
     </div>
     </div>

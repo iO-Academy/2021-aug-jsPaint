@@ -57,6 +57,10 @@ button {
     background-image: url('eraser.png');
 }
 
+.text {
+    background-image: url('text.png');
+}
+
 h1 {
     font-family: "Hiragino Maru Gothic Pro";
     color: #FFFFFF;
