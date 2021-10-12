@@ -3,9 +3,10 @@ const canvas = document.querySelector('canvas')
 // Sets the canvas to 2D drawing
 const ctx = canvas.getContext('2d')
 
-let mode = 'brush';
+let mode = canvas.classList[1];
+console.log(mode)
 let painting = false;
-
+console.log(canvas)
 if (canvas) {
     canvas.addEventListener('mousemove', drawLine);
     // Start painting on click event
@@ -16,7 +17,6 @@ if (canvas) {
 }
 
 function drawLine(event) {
-    ctx.lineTo(event.offsetX, event.offsetY)
     if (!painting) {
         // When not painting, begin a new path
         ctx.beginPath();
@@ -47,6 +47,6 @@ function stopPainting() {
 
 function startPainting() {
     painting = true;
-    canvas.classList.add('brush');
+    // canvas.classList.add('brush');
 }
 
