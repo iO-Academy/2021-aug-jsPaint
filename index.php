@@ -13,6 +13,9 @@
     <div class="toolbar">
 <!--        <button class="painter"></button>-->
 <!--        <button class="eraser"></button>-->
+        <form>
+            <input type="text" id="text" />
+        </form>
     </div>
     </div>
     <main>
