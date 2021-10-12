@@ -10,6 +10,7 @@ let mode = 'black'
 let buttons = document.querySelectorAll('.mode')
 buttons.forEach(function(button){
     button.addEventListener('click', colourPicker)
+    button.addEventListener('click', clickShow)
 })
 
 if (canvas) {
@@ -73,11 +74,19 @@ function stopPainting() {
 
 function startPainting() {
     painting = true;
-    canvas.classList.add('brush');
 }
 
 function colourPicker(e){
     mode = e.currentTarget.name
 }
 
+function clickShow(){
+    buttons.forEach(function(button){
+        if (button.name === mode) {
+            button.classList.add('clicked')
+        } else if (button.name !== mode) {
+            button.classList.remove('clicked')
+        }
+    })
+}
 
