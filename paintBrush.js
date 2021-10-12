@@ -54,5 +54,6 @@ document.querySelector('form').addEventListener('submit', e => {
 //when the text button is clicked, it should reveal the text input
 document.querySelector('.text').addEventListener('click', e => {
     e.preventDefault()
-    document.querySelector('input').setAttribute('type', 'text')
+    document.querySelector('#text').setAttribute('type', 'text')
+    document.querySelector('#submit').setAttribute('type', 'submit')
 })
