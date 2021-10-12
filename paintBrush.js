@@ -97,8 +97,10 @@ document.querySelector('.print').addEventListener('click', e => {
     // win.document.write("Hello World");
     win.document.write("<br><img src = '"+canvasToPrint.toDataURL()+"'/>")
     // Write contents in the new window.
-    win.setTimeout(() => win.print(), 0)
-    win.document.close()
+    win.setTimeout(() => {
+        win.print()
+        win.close()
+    }, 0)
 })
 
 
