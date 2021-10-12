@@ -37,4 +37,14 @@ function startPainting() {
 }
 
 
+//story 7
+document.querySelector('form').addEventListener('submit', e => {
 
+    e.preventDefault()
+    // created a variable to contain the users text input
+    let text = document.querySelector('input').value
+    ctx.font = '50px "Hiragino Maru Gothic Pro"'
+    //create a fill text function that places the users text input at a set
+    //place on the canvas
+    ctx.fillText(text, 10, 50)
+})
