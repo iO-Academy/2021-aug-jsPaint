@@ -90,16 +90,16 @@ document.querySelector('.print').addEventListener('click', e => {
     // window.document.querySelector('.canvas').print()
 
     // Store DIV contents in the variable.
-    var canvasToPrint = document.getElementsByClassName('canvas');
+    var canvasToPrint = document.getElementsByClassName('canvas')
     console.log(canvasToPrint)
     // Create a window object.
-    var win = window.open('', '', 'height=700,width=700');
+    var win = window.open('', '', 'height=700,width=700')
     // Open the window. Its a popup window.
     // win.document.write("Hello World");
-    win.document.write(canvasToPrint);
+    win.document.write("<br><img src = '"+canvasToPrint.toDataURL()+"'/>")
     // Write contents in the new window.
-    win.document.close();
-    win.print();       // Finally, print the contents.
+    win.document.close()
+    win.print()       // Finally, print the contents.
 })
 
 
