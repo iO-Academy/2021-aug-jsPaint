@@ -37,7 +37,7 @@ function startPainting() {
 }
 
 
-
+//story 7
 document.querySelector('form').addEventListener('submit', e => {
 
     e.preventDefault()
