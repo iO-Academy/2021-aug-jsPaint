@@ -10,7 +10,7 @@
 </head>
 <body>
 <div>
-    <div class="toolbar" id="toolbar">
+    <div class="toolbar">
         <button class="painter"></button>
         <button class="eraser"></button>
     </div>
