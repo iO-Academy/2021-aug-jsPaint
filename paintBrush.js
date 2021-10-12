@@ -43,6 +43,7 @@ function drawLine(event) {
         ctx.beginPath();
         ctx.moveTo(event.offsetX, event.offsetY);
     } else {
+        document.querySelector('#sizeForm').disabled = true
         // When painting, draw a line to...
         ctx.lineTo(event.offsetX, event.offsetY)
         // If the mode is set to brush, draw in black
