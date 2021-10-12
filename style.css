@@ -42,42 +42,46 @@ main {
 button {
     padding: 0 1vw;
     margin: 1vw;
-    height: 50px;
-    background-color: #FFFFFF;
+    min-height: 50px;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .painter {
-    background-image: url('paintbrush.png');
+    background-color: #000000;
 }
 
 .eraser {
     background-image: url('eraser.png');
+    background-color: #FFFFFF;
 }
-.red{
+.red {
     background-color: #ff0000;
 }
 
-.blue{
+.blue {
     background-color: #0000FF;
 }
 
-.green{
+.green {
     background-color: #008000;
 }
 
-.yellow{
+.yellow {
     background-color: #ffff00;
 }
 
-.orange{
+.orange {
     background-color: #ffa500;
 }
 
 h1 {
-    font-family: "Hiragino Maru Gothic Pro";
+    font-family: "Hiragino Maru Gothic Pro", sans-serif;
     color: #FFFFFF;
     overflow: hidden;
+}
+
+.clicked {
+    background-image: url('paintbrush.png');
 }

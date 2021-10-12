@@ -11,13 +11,13 @@
 <body>
 <div>
     <div class="toolbar">
-        <button class="mode painter" name="painter"></button>
-        <button class="mode eraser" name="eraser"></button>
+        <button class="mode painter clicked" name="painter"></button>
         <button class="mode red" name="red"></button>
         <button class="mode blue" name="blue"></button>
         <button class="mode green" name="green"></button>
         <button class="mode yellow" name="yellow"></button>
         <button class="mode orange" name="orange"></button>
+        <button class="mode eraser" name="eraser"></button>
     </div>
     </div>
     <main>
