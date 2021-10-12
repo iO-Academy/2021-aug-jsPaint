@@ -11,8 +11,8 @@
 <body>
 <div>
     <div class="toolbar">
-<!--        <button class="painter"></button>-->
-<!--        <button class="eraser"></button>-->
+        <button class="painter"></button>
+        <button class="eraser"></button>
     </div>
     </div>
     <main>
