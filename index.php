@@ -11,13 +11,18 @@
 <body>
 <div>
     <div class="toolbar">
-<!--        <button class="painter"></button>-->
-<!--        <button class="eraser"></button>-->
+        <select class="sizeForm" id="sizeForm">
+            <option data-width="400" data-height="300">Small</option>
+            <option data-width="800" data-height="500">Medium</option>
+            <option data-width="1200" data-height="700">Large</option>
+        </select>
+       <button class="painter"></button>
+       <button class="eraser"></button>
     </div>
     </div>
     <main>
         <h1>Capybara Canvas</h1>
-        <canvas class="canvas" width="1100" height="600"></canvas>
+        <canvas class="canvas"></canvas>
     </main>
 </body>
 </html>
