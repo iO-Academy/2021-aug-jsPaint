@@ -11,6 +11,8 @@ const eraser = document.querySelector('.eraser')
 let painting = false;
 let mode = 'black'
 
+let colours = ['black', 'red', 'blue', 'green', 'yellow', 'orange']
+
 let buttons = document.querySelectorAll('.mode')
 buttons.forEach(function(button){
     button.addEventListener('click', colourPicker)
@@ -40,39 +42,18 @@ function drawLine(event) {
     } else {
         // When painting, draw a line to...
         ctx.lineTo(event.offsetX, event.offsetY)
-        switch (mode){
-            case 'black':
-                ctx.strokeStyle = '#000000'
-                ctx.lineWidth = 5
-                break
-            case 'eraser':
-                ctx.strokeStyle = '#ffffff'
-                ctx.lineWidth = 15
-                break
-            case 'red':
-                ctx.strokeStyle = '#ff0000'
-                ctx.lineWidth = 5
-                break
-            case 'blue':
-                ctx.strokeStyle = '#0000ff'
-                ctx.lineWidth = 5
-                break
-            case 'green':
-                ctx.strokeStyle = '#008000'
-                ctx.lineWidth = 5
-                break
-            case 'yellow':
-                ctx.strokeStyle = '#ffff00'
-                ctx.lineWidth = 5
-                break
-            case 'orange':
-                ctx.strokeStyle = '#ffa500'
-                ctx.lineWidth = 5
-                break
-            default:
-                ctx.strokeStyle = '#000000'
-                ctx.lineWidth = 5
+        if(mode === 'eraser'){
+            ctx.strokeStyle = 'white'
+            ctx.lineWidth = 15
+        } else {
+            colours.forEach(function (colour) {
+                if (colour === mode) {
+                    ctx.strokeStyle = colour
+                    ctx.lineWidth = 5
+                }
+            })
         }
+
         ctx.stroke()
     }
 }
