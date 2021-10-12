@@ -78,3 +78,11 @@ function sizeChange(e){
     canvas.height = parseInt(e.currentTarget.options[e.currentTarget.selectedIndex].dataset.height)
 }
 
+const sizeOptions = document.querySelectorAll('#sizeForm > option')
+const main = document.querySelector('main')
+sizeOptions.forEach(function(sizeOption){
+    if(main.scrollWidth < sizeOption.dataset.width || main.scrollHeight < sizeOption.dataset.height) {
+        sizeOption.disabled = true
+    }
+})
+
