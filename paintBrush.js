@@ -16,7 +16,7 @@ paintbrush.addEventListener('click', function (event) {
     mode = 'brush'
 })
 
-// Adds an event listener which updates mode to eraser on clicking brush button
+// Adds an event listener which updates mode to eraser on clicking eraser button
 eraser.addEventListener('click', function (event) {
     mode = 'eraser'
 })
