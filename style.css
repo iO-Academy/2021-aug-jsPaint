@@ -20,6 +20,8 @@ body  {
 label {
     color: #FFFFFF;
     text-align: center;
+    height: 15px;
+    margin: 5%;
 }
 
 .toolbar {
@@ -50,10 +52,6 @@ button {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    margin: 10%;
-}
-label{
-    height: 50px;
     margin: 10%;
 }
 

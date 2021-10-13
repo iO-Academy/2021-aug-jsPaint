@@ -22,7 +22,7 @@ buttons.forEach(function(button){
     }
     if(button.hasAttribute('data-colour')){
         button.addEventListener('click', colourPicker)
-        button.innerHTML = "<p class='toolTipText'> This is " + button.name + '!</p>'
+        button.innerHTML = "<p class='toolTipText'>" + button.name + ' brush!</p>'
     }
     button.addEventListener('click', clickShow)
 })
