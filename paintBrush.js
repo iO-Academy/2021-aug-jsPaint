@@ -90,7 +90,7 @@ document.querySelector('.print').addEventListener('click', e => {
     e.stopPropagation()
 
     // Store canvas contents in the variable canvasToPrint
-    let canvasToPrint = document.querySelector('#canvas')
+    let canvasToPrint = document.querySelector('.canvas')
     // Create a window object
     let win = window.open('', '', 'height=700,width=700')
     //display the contents of the canvas as an image in the window
