@@ -4,8 +4,7 @@
 }
 
 body,
-.toolbar,
-main {
+.toolbar {
     display: flex;
 }
 
@@ -26,11 +25,12 @@ label {
 .toolbar {
     background-color: #0000FF;
     width: 150px;
-    padding: 10vw 0;
-    height: 100vh;
+    padding: 15px 0;
+    height: 100%;
 }
 
 main {
+    text-align: center;
     width: 90vw;
     align-items: center;
     overflow: auto;
@@ -44,14 +44,23 @@ main {
 }
 
 button {
-    padding: 0 1vw;
-    margin: 1vw;
-    min-height: 50px;
+    padding: 0 5px;
+    min-height: 40px;
+    background-color: #FFFFFF;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    margin: 10%;
 }
 
+input {
+    width: 80%;
+    margin: 10%;
+}
+
+.painter {
+    background-image: url('paintbrush.png');
+}
 
 .black {
     background-color: #000000;
@@ -79,6 +88,10 @@ button {
 
 .orange {
     background-color: #ffa500;
+}
+
+.text {
+    background-image: url('text.png');
 }
 
 h1 {
@@ -120,5 +133,13 @@ label:hover p {
     background-image: url('eraser.png');
     border: black solid 7px;
 }
+
+@media only screen and (min-height: 640px) {
+    .toolbar{
+        height: 100vh;
+    }
+}
+
+
 
 

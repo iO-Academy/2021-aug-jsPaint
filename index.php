@@ -9,7 +9,7 @@
     <script src="paintBrush.js" defer></script>
 </head>
 <body>
-<div>
+<div class="toolbarWrap">
     <div class="toolbar">
         <label for="sizeForm">Select size:
             <p class="toolTipText">Please enlarge your page for the larger options!</p>
@@ -26,8 +26,13 @@
         <button class="mode yellow painter" data-colour="#ffff00" name="yellow"></button>
         <button class="mode orange painter" data-colour="#ffa500" name="orange"></button>
         <button class="mode eraser" name="eraser"></button>
+        <button class="text" name="text"></button>
+        <form id="textForm">
+            <input type="hidden" id="text" />
+            <input type="hidden" id="submit" />
+        </form>
     </div>
-    </div>
+</div>
     <main>
         <h1>Capybara Canvas</h1>
         <canvas class="canvas"></canvas>
