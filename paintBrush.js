@@ -6,14 +6,28 @@ const ctx = canvas.getContext('2d')
 const paintbrush = document.querySelector('.painter')
 // Sets the connection to the eraser button
 const eraser = document.querySelector('.eraser')
+const textButton = document.querySelector('#submit')
+const textInput = document.querySelector('#text')
+const formSubmit = document.querySelector('form')
+const textBoxes = document.querySelectorAll('.textBox')
+const hiddenDiv = document.querySelector('#toAddText')
+
 
 // Sets the default mode to brush and painting to false
 let mode = 'brush'
-let painting = false;
+let painting = false
+let textboxCount = 0
+let moving = false
 
 // Adds an event listener which updates mode to brush on clicking brush button
 paintbrush.addEventListener('click', function (event) {
     mode = 'brush'
+})
+
+textButton.addEventListener('click', function (event) {
+    mode = 'text'
+    textInput.type = 'text'
+    textButton.type = 'submit'
 })
 
 // Adds an event listener which updates mode to eraser on clicking eraser button
@@ -22,7 +36,7 @@ eraser.addEventListener('click', function (event) {
 })
 
 // If there is a canvas
-if (canvas) {
+if (canvas && mode === 'brush') {
     // Add an event listener to draw a line on dragging the mouse
     canvas.addEventListener('mousemove', drawLine);
     // Start painting on click event
@@ -58,6 +72,13 @@ function drawLine(event) {
     }
 }
 
+function changePosition(event) {
+    if (moving) {
+        event.currentTarget.left = event.offsetX
+        event.currentTarget.top = event.offsetY
+    }
+}
+
 function stopPainting() {
     painting = false;
 }
@@ -66,17 +87,24 @@ function startPainting() {
     painting = true;
 }
 
-//story 7
-document.querySelector('form').addEventListener('submit', e => {
+function startMoving() {
+    moving = true
+}
 
-    e.preventDefault()
-    // created a variable to contain the users text input
-    let text = document.querySelector('input').value
-    ctx.font = '50px "Hiragino Maru Gothic Pro"'
-    //create a fill text function that places the users text input at a set
-    //place on the canvas
-    ctx.fillText(text, 10, 50)
-})
+function stopMoving() {
+    moving = false
+}
+
+//story 7
+// document.querySelector('form').addEventListener('submit', e => {
+//     e.preventDefault()
+//     // created a variable to contain the users text input
+//     let text = document.querySelector('input').value
+//     ctx.font = '50px "Hiragino Maru Gothic Pro"'
+//     //create a fill text function that places the users text input at a set
+//     //place on the canvas
+//     ctx.fillText(text, 10, 50)
+// })
 
 //when the text button is clicked, it should reveal the text input
 document.querySelector('.text').addEventListener('click', e => {
@@ -85,3 +113,31 @@ document.querySelector('.text').addEventListener('click', e => {
     document.querySelector('#submit').setAttribute('type', 'submit')
 })
 
+// moving divs event listeners
+textBoxes.forEach(function (textbox) {
+    textbox.addEventListener('mousemove', changePosition)
+    textbox.addEventListener('mousedown', startMoving)
+    textbox.addEventListener('mouseup', stopMoving)
+    textbox.addEventListener('mouseleave', stopMoving)
+})
+
+formSubmit.addEventListener('submit', e => {
+    e.preventDefault()
+    //
+    hiddenDiv.innerHTML += makeText()
+})
+
+function makeText() {
+    let output = ''
+    output += "<p class='textBox box" + textboxCount + "' style='position: absolute; left: 10; top: 50;'>"
+    output += textInput.value
+    output += '</p>'
+    textboxCount += 1
+    return output
+}
+
+// needs to go into function to resize canvas
+hiddenDiv.offsetWidth = canvas.clientWidth
+hiddenDiv.style.left = canvas.offsetLeft
+hiddenDiv.offsetTop = canvas.offsetTop
+hiddenDiv.offsetHeight = canvas.clientHeight
