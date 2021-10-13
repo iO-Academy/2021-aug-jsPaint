@@ -18,7 +18,7 @@
             <input type="hidden" id="text" />
             <input type="hidden" id="submit" />
         </form>
-        <button class="print"></button>
+        <button class="print" id="print"></button>
     </div>
 </div>
     <main>
