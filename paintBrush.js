@@ -2,26 +2,30 @@
 const canvas = document.querySelector('canvas')
 // Sets the canvas to 2D drawing
 const ctx = canvas.getContext('2d')
-// Sets the connection to paintbrush button
-const paintbrush = document.querySelector('.painter')
 // Sets the connection to the eraser button
 const eraser = document.querySelector('.eraser')
+// Sets the connection to the canvas size menu
+const sizePicker = document.querySelector('#sizeForm')
 
 // Sets the default mode to brush and painting to false
-let mode = 'brush'
-let painting = false;
+let painting = false
+let eraseMode = false
+let colourMode = 'black'
 
-// Adds an event listener which updates mode to brush on clicking brush button
-paintbrush.addEventListener('click', function (event) {
-    mode = 'brush'
+
+let buttons = document.querySelectorAll('.mode')
+buttons.forEach(function(button){
+    if(button.name === 'eraser'){
+        button.addEventListener('click', eraseTrue)
+    }else{
+        button.addEventListener('click', eraseFalse)
+    }
+    if(button.hasAttribute('data-colour')){
+        button.addEventListener('click', colourPicker)
+    }
+    button.addEventListener('click', clickShow)
 })
 
-// Adds an event listener which updates mode to eraser on clicking eraser button
-eraser.addEventListener('click', function (event) {
-    mode = 'eraser'
-})
-
-// If there is a canvas
 if (canvas) {
     // Add an event listener to draw a line on dragging the mouse
     canvas.addEventListener('mousemove', drawLine);
@@ -31,6 +35,7 @@ if (canvas) {
     canvas.addEventListener('mouseup', stopPainting);
     canvas.addEventListener('mouseleave', stopPainting);
 }
+
 
 /** Function to disconnect lines when not painting, paint where mouse is when clicking down
  * Dependant on mode set, use black for brush and white for eraser
@@ -43,16 +48,17 @@ function drawLine(event) {
         ctx.beginPath();
         ctx.moveTo(event.offsetX, event.offsetY);
     } else {
+        if (!sizePicker.disabled) {
+            sizePicker.disabled = true
+        }
         // When painting, draw a line to...
         ctx.lineTo(event.offsetX, event.offsetY)
-        // If the mode is set to brush, draw in black
-        if (mode === 'brush') {
-            ctx.strokeStyle = '#000000';
-            ctx.lineWidth = 5;
-            // if the mode is set to eraser, draw white lines
-        } else if (mode === 'eraser') {
-            ctx.strokeStyle = '#FFFFFF';
-            ctx.lineWidth = 15;
+        if(eraseMode === true){
+            ctx.strokeStyle = 'white'
+            ctx.lineWidth = 20
+        } else if(colourMode) {
+            ctx.strokeStyle = colourMode
+            ctx.lineWidth = 5
         }
         ctx.stroke()
     }
@@ -62,12 +68,20 @@ function stopPainting() {
     painting = false;
 }
 
+function eraseTrue() {
+    eraseMode = true;
+}
+
+function eraseFalse() {
+    eraseMode = false;
+}
+
 function startPainting() {
     painting = true;
 }
 
 //story 7
-document.querySelector('form').addEventListener('submit', e => {
+document.querySelector('#textForm').addEventListener('submit', e => {
 
     e.preventDefault()
     // created a variable to contain the users text input
@@ -84,4 +98,36 @@ document.querySelector('.text').addEventListener('click', e => {
     document.querySelector('#text').setAttribute('type', 'text')
     document.querySelector('#submit').setAttribute('type', 'submit')
 })
+
+
+sizePicker.addEventListener('change', sizeChange)
+canvas.width = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.width)
+canvas.height = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.height)
+
+function sizeChange(e){
+    canvas.width = parseInt(e.currentTarget.options[e.currentTarget.selectedIndex].dataset.width)
+    canvas.height = parseInt(e.currentTarget.options[e.currentTarget.selectedIndex].dataset.height)
+}
+
+const sizeOptions = document.querySelectorAll('#sizeForm > option')
+const main = document.querySelector('main')
+sizeOptions.forEach(function(sizeOption){
+    if(main.scrollWidth < sizeOption.dataset.width || main.scrollHeight < sizeOption.dataset.height) {
+        sizeOption.disabled = true
+    }
+})
+
+function colourPicker(e){
+    colourMode = e.currentTarget.dataset.colour
+}
+
+/*
+Sets a class to a button so that when it is clicked the button gets a thick black outline
+ */
+function clickShow(e){
+    buttons.forEach(function(button){
+        button.classList.remove('clicked')
+    })
+    e.currentTarget.classList.add('clicked')
+}
 
