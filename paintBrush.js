@@ -87,7 +87,6 @@ document.querySelector('.text').addEventListener('click', e => {
 // story 9
 document.querySelector('.print').addEventListener('click', e => {
     e.preventDefault()
-    e.stopPropagation()
 
     // Store canvas contents in the variable canvasToPrint
     let canvasToPrint = document.querySelector('#canvas')
