@@ -4,34 +4,30 @@ const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 // Sets the connection to the eraser button
 const eraser = document.querySelector('.eraser')
-
-const textButton = document.querySelector('#submit')
+const textButtonSubmit = document.querySelector('#submit')
 const textInput = document.querySelector('#text')
 const formSubmit = document.querySelector('form')
-const textBoxes = document.querySelectorAll('.textBox')
 const toAddText = document.querySelector("#toAddText")
 const canvasWrap = document.querySelector("#canvasWrap")
-
-
 const sizePicker = document.querySelector('#sizeForm')
+const buttons = document.querySelectorAll('.mode')
 
 // Sets the default mode to brush and painting to false
 let painting = false
 let eraseMode = false
 let colourMode = 'black'
-let moving = false
 let textBoxCount = 0
 
+sizePicker.addEventListener('change', sizeChange)
+canvas.width = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.width)
+canvas.height = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.height)
 
 
-textButton.addEventListener('click', function (event) {
+textButtonSubmit.addEventListener('click', function () {
     textInput.type = 'text'
-    textButton.type = 'submit'
+    textButtonSubmit.type = 'submit'
 })
 
-
-// If there is a canvas
-let buttons = document.querySelectorAll('.mode')
 buttons.forEach(function(button){
     if(button.name === 'eraser'){
         button.addEventListener('click', eraseTrue)
@@ -40,7 +36,9 @@ buttons.forEach(function(button){
     }
     if(button.hasAttribute('data-colour')){
         button.addEventListener('click', colourPicker)
+        button.innerHTML = "<p class='toolTipText'>" + button.name + ' brush!</p>'
     }
+    button.addEventListener('click', textToggle)
     button.addEventListener('click', clickShow)
 })
 
@@ -82,7 +80,6 @@ function drawLine(event) {
     }
 }
 
-
 function stopPainting() {
     painting = false;
 }
@@ -97,15 +94,6 @@ function eraseFalse() {
 
 function startPainting() {
     painting = true;
-}
-
-
-function startMoving() {
-    moving = true
-}
-
-function stopMoving() {
-    moving = false
 }
 
 //story 7
@@ -126,7 +114,6 @@ document.querySelector('.text').addEventListener('click', e => {
     document.querySelector('#submit').setAttribute('type', 'submit')
 })
 
-
 formSubmit.addEventListener('submit', e => {
     e.preventDefault()
     toAddText.innerHTML += makeText()
@@ -134,45 +121,20 @@ formSubmit.addEventListener('submit', e => {
 
 function makeText() {
     let output = ''
-    output += "<span class='textBox box" + textBoxCount + "' style='position: absolute; left: 10; top: 50;'>"
+    output += "<div class='textBox box" + textBoxCount + "' style='position: absolute; left: 10; top: 50;'>"
     output += textInput.value
-    output += '</span>'
+    output += '</div>'
     textBoxCount += 1
     return output
 }
 
-
-
-toAddText.style.width = canvas.width + 'px'
-toAddText.style.height = canvas.height + 'px'
-canvasWrap.style.width = canvas.width + 'px'
-canvasWrap.style.height = canvas.height + 'px'
-
-
-toAddText.addEventListener('mouseup', stopMoving)
-toAddText.addEventListener('mousemove', moveText);
-
-textBoxes.forEach(function (textBox){
-    textBox.addEventListener('mousedown', startMoving)
-})
-
-function moveText(e){
-    if(moving){
-        e.currentTarget.style.left = e.offsetX + 'px'
-        e.currentTarget.style.top = e.offsetY + 'px'
-    }else{
-
-    }
-}
-
-
-sizePicker.addEventListener('change', sizeChange)
-canvas.width = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.width)
-canvas.height = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.height)
-
 function sizeChange(e){
     canvas.width = parseInt(e.currentTarget.options[e.currentTarget.selectedIndex].dataset.width)
     canvas.height = parseInt(e.currentTarget.options[e.currentTarget.selectedIndex].dataset.height)
+    toAddText.style.width = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.width) + 'px'
+    toAddText.style.height = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.height) + 'px'
+    canvasWrap.style.width = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.width) + 'px'
+    canvasWrap.style.height = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.height) + 'px'
 }
 
 const sizeOptions = document.querySelectorAll('#sizeForm > option')
@@ -197,4 +159,85 @@ function clickShow(e){
     e.currentTarget.classList.add('clicked')
 }
 
+function textToggle(e) {
+    if (e.currentTarget.name === 'text') {
+        toAddText.style.pointerEvents = 'auto'
+    } else {
+        toAddText.style.pointerEvents = 'none'
+    }
+}
 
+// Container: toAddText
+// Text-boxes: textBoxes
+let activeItem = null
+let active = false
+
+toAddText.addEventListener('touchstart', dragStart, false)
+toAddText.addEventListener("touchend", dragEnd, false)
+toAddText.addEventListener("touchmove", drag, false)
+
+toAddText.addEventListener("mousedown", dragStart, false)
+toAddText.addEventListener("mouseup", dragEnd, false)
+toAddText.addEventListener("mousemove", drag, false)
+
+function dragStart(e) {
+
+    if (e.target !== e.currentTarget) {
+        active = true;
+
+        // this is the item we are interacting with
+        activeItem = e.target;
+
+        if (activeItem !== null) {
+            if (!activeItem.xOffset) {
+                activeItem.xOffset = 0;
+            }
+
+            if (!activeItem.yOffset) {
+                activeItem.yOffset = 0;
+            }
+
+            if (e.type === "touchstart") {
+                activeItem.initialX = e.touches[0].clientX - activeItem.xOffset;
+                activeItem.initialY = e.touches[0].clientY - activeItem.yOffset;
+            } else {
+                console.log("doing something!");
+                activeItem.initialX = e.clientX - activeItem.xOffset;
+                activeItem.initialY = e.clientY - activeItem.yOffset;
+            }
+        }
+    }
+}
+
+function dragEnd() {
+    if (activeItem !== null) {
+        activeItem.initialX = activeItem.currentX;
+        activeItem.initialY = activeItem.currentY;
+    }
+
+    active = false;
+    activeItem = null;
+}
+
+function drag(e) {
+    if (active) {
+        if (e.type === "touchmove") {
+            e.preventDefault();
+
+            activeItem.currentX = e.touches[0].clientX - activeItem.initialX;
+            activeItem.currentY = e.touches[0].clientY - activeItem.initialY;
+        } else {
+            activeItem.currentX = e.clientX - activeItem.initialX;
+            activeItem.currentY = e.clientY - activeItem.initialY;
+        }
+
+        activeItem.xOffset = activeItem.currentX;
+        activeItem.yOffset = activeItem.currentY;
+
+        setTranslate(activeItem.currentX, activeItem.currentY, activeItem);
+    }
+}
+
+function setTranslate(xPos, yPos, el) {
+    el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
+}

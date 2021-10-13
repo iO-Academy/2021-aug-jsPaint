@@ -9,13 +9,8 @@
     <script src="paintBrush.js" defer></script>
 </head>
 <body>
-<div>
+<div class="toolbarWrap">
     <div class="toolbar">
-        <button class="text"></button>
-        <form>
-            <input type="hidden" id="text" />
-            <input type="hidden" id="submit" />
-        </form>
         <label for="sizeForm">Select size:
             <p class="toolTipText">Please enlarge your page for the larger options!</p>
         </label>
@@ -30,7 +25,14 @@
         <button class="mode green painter" data-colour="#008000" name="green"></button>
         <button class="mode yellow painter" data-colour="#ffff00" name="yellow"></button>
         <button class="mode orange painter" data-colour="#ffa500" name="orange"></button>
-        <button class="mode eraser" name="eraser"></button>
+        <button class="mode eraser" name="eraser"><p class="toolTipText">Erase stuff from the canvas!</p></button>
+        <button class="mode text" id='textButton' name="text">
+            <p class="toolTipText">Type in text and submit it to add it to the canvas!</p>
+        </button>
+        <form id="textForm" class="textForm">
+            <input type="hidden" id="text" />
+            <input type="hidden" id="submit" />
+        </form>
     </div>
 </div>
     <main>
