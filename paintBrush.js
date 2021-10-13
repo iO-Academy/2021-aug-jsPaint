@@ -9,19 +9,19 @@ const eraser = document.querySelector('.eraser')
 
 // Sets the default mode to brush and painting to false
 let painting = false
-let mode = 'black'
-let colourMode = 'black'
 let eraseMode = false
+let colourMode = 'black'
 
-let colours = ['black', 'red', 'blue', 'green', 'yellow', 'orange']
 
 let buttons = document.querySelectorAll('.mode')
 buttons.forEach(function(button){
     if(button.name === 'eraser'){
         button.addEventListener('click', eraseTrue)
     }else{
-        button.addEventListener('click', colourPicker)
         button.addEventListener('click', eraseFalse)
+    }
+    if(button.hasAttribute('data-colour')){
+        button.addEventListener('click', colourPicker)
     }
     button.addEventListener('click', clickShow)
 })
@@ -35,6 +35,7 @@ if (canvas) {
     canvas.addEventListener('mouseup', stopPainting);
     canvas.addEventListener('mouseleave', stopPainting);
 }
+
 
 /** Function to disconnect lines when not painting, paint where mouse is when clicking down
  * Dependant on mode set, use black for brush and white for eraser
@@ -51,16 +52,11 @@ function drawLine(event) {
         ctx.lineTo(event.offsetX, event.offsetY)
         if(eraseMode === true){
             ctx.strokeStyle = 'white'
-            ctx.lineWidth = 15
-        } else {
-            colours.forEach(function (colour) {
-                if (colour === colourMode) {
-                    ctx.strokeStyle = colour
-                    ctx.lineWidth = 5
-                }
-            })
+            ctx.lineWidth = 20
+        } else if(colourMode) {
+            ctx.strokeStyle = colourMode
+            ctx.lineWidth = 5
         }
-
         ctx.stroke()
     }
 }
@@ -83,19 +79,17 @@ function startPainting() {
 
 
 function colourPicker(e){
-    colourMode = e.currentTarget.name
+    colourMode = e.currentTarget.dataset.colour
 }
 
+/*
+Sets a class to a button so that when it is clicked the button gets a thick black outline
+ */
 function clickShow(e){
-    mode = e.currentTarget.name
     buttons.forEach(function(button){
-        if (button.name === mode) {
-            button.classList.add('clicked')
-        }
-        else if (button.name !== mode) {
-            button.classList.remove('clicked')
-        }
+        button.classList.remove('clicked')
     })
+    e.currentTarget.classList.add('clicked')
 }
 
 
