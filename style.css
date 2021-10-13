@@ -126,4 +126,7 @@ label:hover p {
     border: black solid 7px;
 }
 
+.disabled {
+    opacity: 0.5;
+}
 

@@ -51,10 +51,14 @@ function drawLine(event) {
         if (!sizePicker.disabled) {
             sizePicker.disabled = true
         }
+        if (!bgButton.disabled) {
+            bgButton.disabled = true
+            bgButton.classList.add('disabled')
+        }
         // When painting, draw a line to...
         ctx.lineTo(event.offsetX, event.offsetY)
         if(eraseMode === true){
-            ctx.strokeStyle = 'white'
+            ctx.strokeStyle = canvas.style.background
             ctx.lineWidth = 20
         } else if(colourMode) {
             ctx.strokeStyle = colourMode
