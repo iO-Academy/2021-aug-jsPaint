@@ -83,16 +83,11 @@ h1 {
     position: relative;
     z-index:2;
     pointer-events: none;
-
 }
 
 .canvi {
     position: relative;
 }
-
-
-
-/*// We need to go into the chrome and sort the flexbox stuff */
 
 
 
