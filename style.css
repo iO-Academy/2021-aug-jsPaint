@@ -46,22 +46,43 @@ main {
 button {
     padding: 0 1vw;
     margin: 1vw;
-    height: 50px;
-    background-color: #FFFFFF;
+    min-height: 50px;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
 }
 
-.painter {
-    background-image: url('paintbrush.png');
+
+.black {
+    background-color: #000000;
 }
 
 .eraser {
     background-image: url('eraser.png');
+    background-color: #FFFFFF;
+}
+.red {
+    background-color: #ff0000;
+}
+
+.blue {
+    background-color: #0000FF;
+}
+
+.green {
+    background-color: #008000;
+}
+
+.yellow {
+    background-color: #ffff00;
+}
+
+.orange {
+    background-color: #ffa500;
 }
 
 h1 {
+    font-family: "Hiragino Maru Gothic Pro", sans-serif;
     color: #FFFFFF;
     overflow: hidden;
 }
@@ -71,7 +92,7 @@ h1 {
     text-align: center;
 }
 
-.tooltiptext {
+.toolTipText {
     height: 0;
     overflow: hidden;
     width: 120px;
@@ -89,3 +110,15 @@ h1 {
 label:hover p {
     height: auto;
 }
+
+.clicked.painter {
+    background-image: url('paintbrush.png');
+    border: black solid 5px;
+}
+
+.clicked.eraser {
+    background-image: url('eraser.png');
+    border: black solid 7px;
+}
+
+
