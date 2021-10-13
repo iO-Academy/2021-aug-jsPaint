@@ -13,19 +13,22 @@ let buttons = document.querySelectorAll('.mode')
 let painting = false
 let eraseMode = false
 let colourMode = 'black'
+let coloursarray = []
 
-buttons.forEach(function(button){
-    if(button.name === 'eraser'){
+buttons.forEach(function(button) {
+    if (button.name === 'eraser') {
         button.addEventListener('click', eraseTrue)
-    }else{
+    } else {
         button.addEventListener('click', eraseFalse)
     }
-    if(button.hasAttribute('data-colour')){
+    if (button.hasAttribute('data-colour')) {
         button.addEventListener('click', colourPicker)
         button.innerHTML = "<p class='toolTipText'>" + button.name + ' brush!</p>'
+        coloursarray.push(button.dataset.colour)
     }
     button.addEventListener('click', clickShow)
 })
+
 
 if (canvas) {
     // Add an event listener to draw a line on dragging the mouse
@@ -136,10 +139,6 @@ function clickShow(e){
     e.currentTarget.classList.add('clicked')
 }
 
-
-
-
-
 let bgButton = document.querySelector('.changeBG')
 
 bgButton.addEventListener('click', backgroundChange)
@@ -147,19 +146,7 @@ bgButton.addEventListener('click', backgroundChange)
 let bgCount = 0
 
 function backgroundOptions(){
-    if(bgCount === 0){
-        canvas.style.background = 'white'
-    }else if(bgCount === 1){
-        canvas.style.background = 'red'
-    }else if(bgCount === 2){
-        canvas.style.background = 'blue'
-    }else if(bgCount === 3){
-        canvas.style.background = 'green'
-    }else if(bgCount === 4){
-        canvas.style.background = 'yellow'
-    }else if(bgCount === 5){
-        canvas.style.background = 'orange'
-    }
+ canvas.style.background = coloursarray[bgCount]
 }
 
 function backgroundChange(){
@@ -170,3 +157,4 @@ function backgroundChange(){
     }
     backgroundOptions()
 }
+console.log(coloursarray);
