@@ -22,9 +22,10 @@
 </div>
     <main>
         <h1>Capybara Canvas</h1>
-        <canvas class="canvas" width="1100" height="600"></canvas>
-        <div id="toAddText">
-
+        <div class="canvasWrap" id="canvasWrap">
+            <div class="toAddText" id="toAddText">
+            </div>
+            <canvas class="canvas" width="1100" height="600"></canvas>
         </div>
     </main>
 </body>

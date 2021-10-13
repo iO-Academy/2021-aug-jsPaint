@@ -10,13 +10,14 @@ const textButton = document.querySelector('#submit')
 const textInput = document.querySelector('#text')
 const formSubmit = document.querySelector('form')
 const textBoxes = document.querySelectorAll('.textBox')
-const hiddenDiv = document.querySelector('#toAddText')
+const toAddText = document.querySelector("#toAddText")
+const canvasWrap = document.querySelector("#canvasWrap")
 
 
 // Sets the default mode to brush and painting to false
 let mode = 'brush'
 let painting = false
-let textboxCount = 0
+let textBoxCount = 0
 let moving = false
 
 // Adds an event listener which updates mode to brush on clicking brush button
@@ -72,12 +73,6 @@ function drawLine(event) {
     }
 }
 
-function changePosition(event) {
-    if (moving) {
-        event.currentTarget.left = event.offsetX
-        event.currentTarget.top = event.offsetY
-    }
-}
 
 function stopPainting() {
     painting = false;
@@ -113,31 +108,42 @@ document.querySelector('.text').addEventListener('click', e => {
     document.querySelector('#submit').setAttribute('type', 'submit')
 })
 
-// moving divs event listeners
-textBoxes.forEach(function (textbox) {
-    textbox.addEventListener('mousemove', changePosition)
-    textbox.addEventListener('mousedown', startMoving)
-    textbox.addEventListener('mouseup', stopMoving)
-    textbox.addEventListener('mouseleave', stopMoving)
-})
 
 formSubmit.addEventListener('submit', e => {
     e.preventDefault()
-    //
-    hiddenDiv.innerHTML += makeText()
+    toAddText.innerHTML += makeText()
 })
 
 function makeText() {
     let output = ''
-    output += "<p class='textBox box" + textboxCount + "' style='position: absolute; left: 10; top: 50;'>"
+    output += "<span class='textBox box" + textBoxCount + "' style='position: absolute; left: 10; top: 50;'>"
     output += textInput.value
-    output += '</p>'
-    textboxCount += 1
+    output += '</span>'
+    textBoxCount += 1
     return output
 }
 
-// needs to go into function to resize canvas
-hiddenDiv.offsetWidth = canvas.clientWidth
-hiddenDiv.style.left = canvas.offsetLeft
-hiddenDiv.offsetTop = canvas.offsetTop
-hiddenDiv.offsetHeight = canvas.clientHeight
+
+
+toAddText.style.width = canvas.width + 'px'
+toAddText.style.height = canvas.height + 'px'
+canvasWrap.style.width = canvas.width + 'px'
+canvasWrap.style.height = canvas.height + 'px'
+
+
+toAddText.addEventListener('mouseup', stopMoving)
+toAddText.addEventListener('mousemove', moveText);
+
+textBoxes.forEach(function (textBox){
+    textBox.addEventListener('mousedown', startMoving)
+})
+
+function moveText(e){
+    if(moving){
+        e.currentTarget.style.left = e.offsetX + 'px'
+        e.currentTarget.style.top = e.offsetY + 'px'
+    }else{
+
+    }
+}
+
