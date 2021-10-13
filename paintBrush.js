@@ -2,10 +2,10 @@
 const canvas = document.querySelector('canvas')
 // Sets the canvas to 2D drawing
 const ctx = canvas.getContext('2d')
-// Sets the connection to paintbrush button
-const paintbrush = document.querySelector('.painter')
 // Sets the connection to the eraser button
 const eraser = document.querySelector('.eraser')
+// Sets the connection to the canvas size menu
+const sizePicker = document.querySelector('#sizeForm')
 
 // Sets the default mode to brush and painting to false
 let painting = false
@@ -48,6 +48,9 @@ function drawLine(event) {
         ctx.beginPath();
         ctx.moveTo(event.offsetX, event.offsetY);
     } else {
+        if (!sizePicker.disabled) {
+            sizePicker.disabled = true
+        }
         // When painting, draw a line to...
         ctx.lineTo(event.offsetX, event.offsetY)
         if(eraseMode === true){
@@ -78,6 +81,24 @@ function startPainting() {
 }
 
 
+
+sizePicker.addEventListener('change', sizeChange)
+canvas.width = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.width)
+canvas.height = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.height)
+
+function sizeChange(e){
+    canvas.width = parseInt(e.currentTarget.options[e.currentTarget.selectedIndex].dataset.width)
+    canvas.height = parseInt(e.currentTarget.options[e.currentTarget.selectedIndex].dataset.height)
+}
+
+const sizeOptions = document.querySelectorAll('#sizeForm > option')
+const main = document.querySelector('main')
+sizeOptions.forEach(function(sizeOption){
+    if(main.scrollWidth < sizeOption.dataset.width || main.scrollHeight < sizeOption.dataset.height) {
+        sizeOption.disabled = true
+    }
+})
+
 function colourPicker(e){
     colourMode = e.currentTarget.dataset.colour
 }
@@ -91,5 +112,6 @@ function clickShow(e){
     })
     e.currentTarget.classList.add('clicked')
 }
+
 
 
