@@ -6,6 +6,8 @@ const ctx = canvas.getContext('2d')
 const paintbrush = document.querySelector('.painter')
 // Sets the connection to the eraser button
 const eraser = document.querySelector('.eraser')
+// Sets the connection to the canvas size menu
+const sizePicker = document.querySelector('#sizeForm')
 
 // Sets the default mode to brush and painting to false
 let mode = 'brush'
@@ -43,7 +45,9 @@ function drawLine(event) {
         ctx.beginPath();
         ctx.moveTo(event.offsetX, event.offsetY);
     } else {
-        document.querySelector('#sizeForm').disabled = true
+        if (!sizePicker.disabled) {
+            sizePicker.disabled = true
+        }
         // When painting, draw a line to...
         ctx.lineTo(event.offsetX, event.offsetY)
         // If the mode is set to brush, draw in black
@@ -67,7 +71,6 @@ function startPainting() {
     painting = true;
 }
 
-let sizePicker = document.querySelector('#sizeForm')
 
 sizePicker.addEventListener('change', sizeChange)
 canvas.width = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.width)
