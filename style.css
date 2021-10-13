@@ -81,6 +81,11 @@ button {
     background-color: #ffa500;
 }
 
+.changeBG {
+    background-image: url('filler.png');
+    background-color: #FFFFFF;
+}
+
 h1 {
     font-family: "Hiragino Maru Gothic Pro", sans-serif;
     color: #FFFFFF;
