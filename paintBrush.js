@@ -83,5 +83,6 @@ document.querySelector('.text').addEventListener('click', e => {
     e.preventDefault()
     document.querySelector('#text').setAttribute('type', 'text')
     document.querySelector('#submit').setAttribute('type', 'submit')
+    document.querySelector(".canvasText").style.pointerEvents =  "auto"
 })
 
