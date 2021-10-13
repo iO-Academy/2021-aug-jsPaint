@@ -11,8 +11,13 @@
 <body>
 <div>
     <div class="toolbar">
-        <button class="painter"></button>
-        <button class="eraser"></button>
+        <button class="mode black clicked" data-colour="#000000" name="black"></button>
+        <button class="mode red" data-colour="#ff0000" name="red"></button>
+        <button class="mode blue" data-colour="#0000ff" name="blue"></button>
+        <button class="mode green" data-colour="#008000" name="green"></button>
+        <button class="mode yellow" data-colour="#ffff00" name="yellow"></button>
+        <button class="mode orange" data-colour="#ffa500" name="orange"></button>
+        <button class="mode eraser" name="eraser"></button>
     </div>
     </div>
     <main>
