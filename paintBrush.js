@@ -7,13 +7,13 @@ const eraser = document.querySelector('.eraser')
 // Sets the connection to the canvas size menu
 const sizePicker = document.querySelector('#sizeForm')
 
+let buttons = document.querySelectorAll('.mode')
+
 // Sets the default mode to brush and painting to false
 let painting = false
 let eraseMode = false
 let colourMode = 'black'
 
-
-let buttons = document.querySelectorAll('.mode')
 buttons.forEach(function(button){
     if(button.name === 'eraser'){
         button.addEventListener('click', eraseTrue)
@@ -22,6 +22,7 @@ buttons.forEach(function(button){
     }
     if(button.hasAttribute('data-colour')){
         button.addEventListener('click', colourPicker)
+        button.innerHTML = "<p class='toolTipText'>" + button.name + ' brush!</p>'
     }
     button.addEventListener('click', clickShow)
 })
@@ -130,4 +131,7 @@ function clickShow(e){
     })
     e.currentTarget.classList.add('clicked')
 }
+
+
+
 
