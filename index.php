@@ -26,7 +26,9 @@
         <button class="mode yellow painter" data-colour="#ffff00" name="yellow"></button>
         <button class="mode orange painter" data-colour="#ffa500" name="orange"></button>
         <button class="mode eraser" name="eraser"></button>
-        <button class="changeBG" name="changeBG"></button>
+        <button class="changeBG" name="changeBG">
+            <p class="toolTipText">Click to cycle through our background colours!</p>
+        </button>
 
     </div>
     </div>
