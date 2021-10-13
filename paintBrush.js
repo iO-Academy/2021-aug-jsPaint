@@ -7,13 +7,13 @@ const eraser = document.querySelector('.eraser')
 // Sets the connection to the canvas size menu
 const sizePicker = document.querySelector('#sizeForm')
 
+let buttons = document.querySelectorAll('.mode')
+
 // Sets the default mode to brush and painting to false
 let painting = false
 let eraseMode = false
 let colourMode = 'black'
 
-
-let buttons = document.querySelectorAll('.mode')
 buttons.forEach(function(button){
     if(button.name === 'eraser'){
         button.addEventListener('click', eraseTrue)
@@ -22,6 +22,7 @@ buttons.forEach(function(button){
     }
     if(button.hasAttribute('data-colour')){
         button.addEventListener('click', colourPicker)
+        button.innerHTML = "<p class='toolTipText'>" + button.name + ' brush!</p>'
     }
     button.addEventListener('click', clickShow)
 })
@@ -84,6 +85,24 @@ function startPainting() {
     painting = true;
 }
 
+//story 7
+document.querySelector('#textForm').addEventListener('submit', e => {
+
+    e.preventDefault()
+    // created a variable to contain the users text input
+    let text = document.querySelector('input').value
+    ctx.font = '50px "Hiragino Maru Gothic Pro"'
+    //create a fill text function that places the users text input at a set
+    //place on the canvas
+    ctx.fillText(text, 10, 50)
+})
+
+//when the text button is clicked, it should reveal the text input
+document.querySelector('.text').addEventListener('click', e => {
+    e.preventDefault()
+    document.querySelector('#text').setAttribute('type', 'text')
+    document.querySelector('#submit').setAttribute('type', 'submit')
+})
 
 
 sizePicker.addEventListener('change', sizeChange)
@@ -120,9 +139,9 @@ function clickShow(e){
 
 
 
+
 let bgButton = document.querySelector('.changeBG')
-//
-// button.addEventListener('click' , onclick);
+
 bgButton.addEventListener('click', backgroundChange)
 
 let bgCount = 0
