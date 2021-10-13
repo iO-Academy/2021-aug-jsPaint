@@ -19,9 +19,6 @@
             <option data-width="800" data-height="500">Medium</option>
             <option data-width="1200" data-height="700">Large</option>
         </select>
-
-
-
         <button class="mode black painter clicked" data-colour="#000000" name="black"></button>
         <button class="mode red painter" data-colour="#ff0000" name="red"></button>
         <button class="mode blue painter" data-colour="#0000ff" name="blue"></button>
