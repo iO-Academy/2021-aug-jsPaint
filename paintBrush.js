@@ -115,3 +115,35 @@ function clickShow(e){
 
 
 
+
+let bgButton = document.querySelector('.changeBG')
+//
+// button.addEventListener('click' , onclick);
+bgButton.addEventListener('click', backgroundChange)
+
+let bgCount = 0
+
+function backgroundOptions(){
+    if(bgCount === 0){
+        canvas.style.background = 'white'
+    }else if(bgCount === 1){
+        canvas.style.background = 'red'
+    }else if(bgCount === 2){
+        canvas.style.background = 'blue'
+    }else if(bgCount === 3){
+        canvas.style.background = 'green'
+    }else if(bgCount === 4){
+        canvas.style.background = 'yellow'
+    }else if(bgCount === 5){
+        canvas.style.background = 'orange'
+    }
+}
+
+function backgroundChange(){
+    if(bgCount === 6){
+        bgCount = 0
+    }else{
+        bgCount += 1
+    }
+    backgroundOptions()
+}
