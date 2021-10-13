@@ -4,6 +4,7 @@ const canvas = document.querySelector('.canvas')
 const ctx = canvas.getContext('2d')
 // Select the canvas in the dom for the text canvas
 const canvasTextC = document.querySelector('.canvasText')
+console.log(canvasTextC)
 // Sets the canvas to 2D drawing
 const ctxText = canvasTextC.getContext('2d')
 // Sets the connection to paintbrush button
@@ -16,7 +17,7 @@ let selectedText = -1
 
 // Sets the default mode to brush and painting to false
 let mode = 'brush'
-let painting = false;
+let painting = false
 
 // Adds an event listener which updates mode to brush on clicking brush button
 paintbrush.addEventListener('click', function (event) {
@@ -31,74 +32,44 @@ eraser.addEventListener('click', function (event) {
 // If there is a canvas
 if (canvas) {
     // Add an event listener to draw a line on dragging the mouse
-    canvas.addEventListener('mousemove', drawLine);
+    canvas.addEventListener('mousemove', drawLine)
     // Start painting on click event
-    canvas.addEventListener('mousedown', startPainting);
+    canvas.addEventListener('mousedown', startPainting)
     // Stop painting on stopping clicking/off page
-    canvas.addEventListener('mouseup', stopPainting);
-    canvas.addEventListener('mouseleave', stopPainting);
+    canvas.addEventListener('mouseup', stopPainting)
+    canvas.addEventListener('mouseleave', stopPainting)
 }
 
-/** Function to disconnect lines when not painting, paint where mouse is when clicking down
- * Dependant on mode set, use black for brush and white for eraser
- *
- * @param event
- */
-function drawLine(event) {
-    if (selectedText < 0) {
-        if (!painting) {
-            // When not painting, begin a new path
-            ctx.beginPath();
-            ctx.moveTo(event.offsetX, event.offsetY);
-        } else {
-            // When painting, draw a line to...
-            ctx.lineTo(event.offsetX, event.offsetY)
-            // If the mode is set to brush, draw in black
-            if (mode === 'brush') {
-                ctx.strokeStyle = '#000000';
-                ctx.lineWidth = 5;
-                // if the mode is set to eraser, draw white lines
-            } else if (mode === 'eraser') {
-                ctx.strokeStyle = '#FFFFFF';
-                ctx.lineWidth = 15;
-            }
-            ctx.stroke()
-        }
-    } else {
-        mouseX = parseInt(event.clientX - canvasTextC.offsetLeft);
-        mouseY = parseInt(event.clientY - canvasTextC.offsetTop);
+// If there is a text canvas
+if (canvasTextC) {
+    // Add an event listener to draw a line on dragging the mouse
+    canvasTextC.addEventListener('mousemove', drawLine)
+    // Start painting on click event
+    canvasTextC.addEventListener('mousedown', startPainting)
+    // Stop painting on stopping clicking/off page
+    canvasTextC.addEventListener('mouseup', stopPainting)
+    canvasTextC.addEventListener('mouseleave', stopPainting)
+}
 
-        let dx = mouseX - startX;
-        let dy = mouseY - startY;
-        startX = mouseX;
-        startY = mouseY;
-
-        let text = texts[selectedText];
-
-        ctxText.font = '51px "Hiragino Maru Gothic Pro"'
-        ctxText.fillStyle = '#ffffff'
-        ctxText.shadowColor = 'rgba(0,0,0,0)'
+function drawText() {
+    let canvasWidth = document.querySelector('.canvasText').getAttribute('width')
+    let canvasHeight = document.querySelector('.canvasText').getAttribute('height')
+    ctxText.clearRect(0, 0, canvasWidth, canvasHeight)
+    // ctxText.clearRect(0, 0, canvasTextC.width, canvasTextC.height)
+    for (var i = 0; i< texts.length; i++) {
+        var text = texts[i]
         ctxText.fillText(text.text, text.x, text.y)
-
-
-        text.x += dx;
-        text.y += dy;
-
-        ctxText.fillStyle = '#000000'
-        ctxText.fillText(text.text, text.x, text.y)
-
     }
 }
 
-function stopPainting() {
-    painting = false;
-    selectedText = -1
+function textHittest(x, y, textIndex) {
+    var text = texts[textIndex]
+    return (x >= text.x && x <= text.x + text.width && y >= text.y - text.height && y <= text.y)
 }
 
-function startPainting() {
-    // painting = true;
-    startX = parseInt(e.clientX - canvasTextC.offsetLeft);
-    startY = parseInt(e.clientY - canvasTextC.offsetTop);
+function startPainting(e) {
+    startX = parseInt(e.clientX - canvasTextC.offsetLeft)
+    startY = parseInt(e.clientY - canvasTextC.offsetTop)
 
     console.log({startx: startX, starty: startY})
 
@@ -113,20 +84,69 @@ function startPainting() {
     }
 }
 
-function textHittest(x, y, textIndex) {
-   var text = texts[textIndex];
-   return (x >= text.x && x <= text.x + text.width && y >= text.y - text.height && y <= text.y);
+function stopPainting() {
+    painting = false
+    selectedText = -1
 }
 
+/** Function to disconnect lines when not painting, paint where mouse is when clicking down
+ * Dependant on mode set, use black for brush and white for eraser
+ *
+ * @param event
+ */
+function drawLine(event) {
+    if (selectedText < 0) {
+        if (!painting) {
+            // When not painting, begin a new path
+            ctx.beginPath();
+            ctx.moveTo(event.offsetX, event.offsetY)
+        } else {
+            // When painting, draw a line to...
+            ctx.lineTo(event.offsetX, event.offsetY)
+            // If the mode is set to brush, draw in black
+            if (mode === 'brush') {
+                ctx.strokeStyle = '#000000'
+                ctx.lineWidth = 5
+                // if the mode is set to eraser, draw white lines
+            } else if (mode === 'eraser') {
+                ctx.strokeStyle = '#FFFFFF'
+                ctx.lineWidth = 15
+            }
+            ctx.stroke()
+        }
+    } else {
+        mouseX = parseInt(event.clientX - canvasTextC.offsetLeft)
+        mouseY = parseInt(event.clientY - canvasTextC.offsetTop)
+
+        let dx = mouseX - startX
+        let dy = mouseY - startY
+        startX = mouseX
+        startY = mouseY
+
+        let text = texts[selectedText]
+
+        // ctxText.font = '51px "Hiragino Maru Gothic Pro"'
+        // ctxText.fillStyle = '#ffffff'
+        // ctxText.shadowColor = 'rgba(0,0,0,0)'
+        // ctxText.fillText(text.text, text.x, text.y)
+
+        text.x += dx
+        text.y += dy
+        drawText()
+
+        // ctxText.fillStyle = '#000000'
+        // ctxText.fillText(text.text, text.x, text.y)
+    }
+}
 
 //story 7
 document.querySelector('form').addEventListener('submit', e => {
 
     e.preventDefault()
-    let text = document.querySelector('input').value
+    let textSubmitted = document.querySelector('input').value
 
     let textObj = {
-        text: text,
+        text: textSubmitted,
         x: 10,
         y: 50
     }
@@ -139,7 +159,8 @@ document.querySelector('form').addEventListener('submit', e => {
     texts.push(textObj)
     //create a fill text function that places the users text input at a set
     //place on the canvas
-    ctxText.fillText(text, 10, 50)
+    // ctxText.fillText(text, 10, 50)
+    drawText()
 })
 
 //when the text button is clicked, it should reveal the text input
@@ -148,6 +169,7 @@ document.querySelector('.text').addEventListener('click', e => {
     document.querySelector('#text').setAttribute('type', 'text')
     document.querySelector('#submit').setAttribute('type', 'submit')
     document.querySelector(".canvasText").style.pointerEvents =  "auto"
+    document.querySelector(".canvas").style.pointerEvents = "none"
 })
 
 
