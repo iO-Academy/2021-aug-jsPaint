@@ -6,26 +6,18 @@ const ctx = canvas.getContext('2d')
 const eraser = document.querySelector('.eraser')
 // Sets the connection to the canvas size menu
 const sizePicker = document.querySelector('#sizeForm')
-
-let buttons = document.querySelectorAll('.mode')
+// Sets the connection to the colour picker
+const colourPicker = document.querySelector('#colourPicker')
 
 // Sets the default mode to brush and painting to false
 let painting = false
 let eraseMode = false
 let colourMode = 'black'
 
-buttons.forEach(function(button){
-    if(button.name === 'eraser'){
-        button.addEventListener('click', eraseTrue)
-    }else{
-        button.addEventListener('click', eraseFalse)
-    }
-    if(button.hasAttribute('data-colour')){
-        button.addEventListener('click', colourPicker)
-        button.innerHTML = "<p class='toolTipText'>" + button.name + ' brush!</p>'
-    }
-    button.addEventListener('click', clickShow)
-})
+eraser.addEventListener('click', eraseTrue)
+colourPicker.addEventListener('click', eraseFalse)
+eraser.addEventListener('click', clickShow)
+colourPicker.addEventListener('change', pickColour)
 
 if (canvas) {
     // Add an event listener to draw a line on dragging the mouse
@@ -118,17 +110,15 @@ sizeOptions.forEach(function(sizeOption){
     }
 })
 
-function colourPicker(e){
-    colourMode = e.currentTarget.dataset.colour
+function pickColour(){
+    colourMode = colourPicker.value
 }
 
 /*
 Sets a class to a button so that when it is clicked the button gets a thick black outline
  */
 function clickShow(e){
-    buttons.forEach(function(button){
-        button.classList.remove('clicked')
-    })
+    eraser.classList.remove('clicked')
     e.currentTarget.classList.add('clicked')
 }
 

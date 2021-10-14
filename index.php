@@ -19,12 +19,7 @@
             <option data-width="800" data-height="500">Medium</option>
             <option data-width="1200" data-height="700">Large</option>
         </select>
-        <button class="mode black painter clicked" data-colour="#000000" name="black"></button>
-        <button class="mode red painter" data-colour="#ff0000" name="red"></button>
-        <button class="mode blue painter" data-colour="#0000ff" name="blue"></button>
-        <button class="mode green painter" data-colour="#008000" name="green"></button>
-        <button class="mode yellow painter" data-colour="#ffff00" name="yellow"></button>
-        <button class="mode orange painter" data-colour="#ffa500" name="orange"></button>
+        <input type="color" id="colourPicker" value="#000000" />
         <button class="mode eraser" name="eraser"><p class="toolTipText">Erase stuff from the canvas!</p></button>
         <button class="text" name="text">
             <p class="toolTipText">Type in text and submit it to add it to the canvas!</p>
