@@ -173,8 +173,6 @@ function textToggle(e) {
     }
 }
 
-
-
 function dragStart(e) {
     if (e.target !== e.currentTarget) {
         active = true;
@@ -226,3 +224,4 @@ function drag(e) {
 function setTranslate(xPos, yPos, item) {
     item.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
 }
+
