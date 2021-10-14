@@ -13,8 +13,8 @@
     <div class="toolbar">
         <button class="painter"></button>
         <button class="eraser"></button>
-        <button class="text"></button>
-        <form>
+        <button class="text" id="textButton"></button>
+        <form id="formText">
             <input type="hidden" id="text" />
             <input type="hidden" id="submit" />
         </form>

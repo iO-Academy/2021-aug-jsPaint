@@ -27,7 +27,6 @@ main {
     text-align: center;
     width: 90vw;
     align-items: center;
-    /*overflow: auto;*/
     border: 20px solid #A45EE5;
 }
 
@@ -88,7 +87,6 @@ h1 {
 }
 
 .canvi {
-    /*position: relative;*/
     overflow: auto;
 }
 

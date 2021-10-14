@@ -4,13 +4,20 @@ const canvas = document.querySelector('.canvas')
 const ctx = canvas.getContext('2d')
 // Select the canvas in the dom for the text canvas
 const canvasTextC = document.querySelector('.canvasText')
-console.log(canvasTextC)
 // Sets the canvas to 2D drawing
 const ctxText = canvasTextC.getContext('2d')
 // Sets the connection to paintbrush button
 const paintbrush = document.querySelector('.painter')
 // Sets the connection to the eraser button
 const eraser = document.querySelector('.eraser')
+//Sets the connection to the text input form
+const formText = document.querySelector('#formText')
+//Sets the connection to the text button
+const textButton = document.querySelector('#textButton')
+//Sets the connection to input
+const textInput = document.querySelector('#text')
+//Sets the connection to the text form submit
+const textSubmit = document.querySelector('#submit')
 
 //Create a texts array to hold text objects
 let texts = []
@@ -121,7 +128,7 @@ function moveText(event) {
         drawText()
 }
 
-document.querySelector('form').addEventListener('submit', e => {
+formText.addEventListener('submit', e => {
 
     e.preventDefault()
     //Create a variable to contain the users text input
@@ -153,24 +160,15 @@ document.querySelector('form').addEventListener('submit', e => {
 
 //when the text button is clicked, the text input and submit button are revealed and the pointer events on the text
 // canvas is changed from none to auto and the paint canvas from auto to none.
-document.querySelector('.text').addEventListener('click', e => {
+textButton.addEventListener('click', e => {
     e.preventDefault()
-    document.querySelector('#text').setAttribute('type', 'text')
-    document.querySelector('#submit').setAttribute('type', 'submit')
-    document.querySelector('.canvasText').style.pointerEvents =  'auto'
-    document.querySelector('.canvas').style.pointerEvents = 'none'
+    textInput.setAttribute('type', 'text')
+    textSubmit.setAttribute('type', 'submit')
+    canvasTextC.style.pointerEvents =  'auto'
+    canvas.style.pointerEvents = 'none'
 })
 
-//Iterates through the texts[] array and see's if the user clicked (mousedown) on one of them
-//If yes, sets the selectedText to the index of that text
-function startPainting() {
-    painting = true
-}
 
-function stopPainting() {
-    painting = false
-    selectedText = -1
-}
 
 /** Function to disconnect lines when not painting, paint where mouse is when clicking down
  * Dependant on mode set, use black for brush and white for eraser
@@ -180,7 +178,7 @@ function stopPainting() {
 function drawLine(event) {
     if (!painting) {
         // When not painting, begin a new path
-        ctx.beginPath();
+        ctx.beginPath()
         ctx.moveTo(event.offsetX, event.offsetY)
     } else {
         // When painting, draw a line to...
@@ -196,4 +194,12 @@ function drawLine(event) {
         }
         ctx.stroke()
     }
+}
+
+function startPainting() {
+    painting = true
+}
+
+function stopPainting() {
+    painting = false
 }
