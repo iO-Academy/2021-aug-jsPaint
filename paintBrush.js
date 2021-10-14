@@ -264,6 +264,23 @@ textButton.addEventListener('click', e => {
     textInput.setAttribute('type', 'text')
     textSubmit.setAttribute('type', 'submit')
 })
+// story 9
+document.querySelector('.print').addEventListener('click', e => {
+    e.preventDefault()
+
+    // Store canvas contents in the variable canvasToPrint
+    let canvasToPrint = document.querySelector('.canvas')
+    // Create a window object
+    let win = window.open('', '', 'height=700,width=700')
+    //display the contents of the canvas as an image in the window
+    win.document.write("<br><img src = '"+canvasToPrint.toDataURL()+"'/>")
+    // Print the contents of the window then close it
+    win.setTimeout(() => {
+        win.print()
+        win.close()
+    }, 0)
+})
+
 
 
 
