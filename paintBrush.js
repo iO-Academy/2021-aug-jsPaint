@@ -15,6 +15,7 @@ const canvi = document.querySelector('.canvi')
 //Sets the connection to the print button
 const print = document.querySelector('.print')
 
+
 //Create a texts array to hold text objects
 let texts = []
 //Holds the index (in the array) of the hit-selected text
@@ -35,8 +36,6 @@ const ctx = canvas.getContext('2d')
 const eraser = document.querySelector('.eraser')
 // Sets the connection to the canvas size menu
 const sizePicker = document.querySelector('#sizeForm')
-// Connects to the text-box form
-const textForm = document.querySelector('#textForm')
 // Connects to all the buttons in the toolbar
 const buttons = document.querySelectorAll('.button')
 // Sets a connection to all the canvas size options
@@ -44,10 +43,12 @@ const sizeOptions = document.querySelectorAll('#sizeForm > option')
 // Connects to <main>
 const main = document.querySelector('main')
 
+canvas.style.background = "white"
 // Sets the default mode to brush and painting to false
 let painting = false
 let eraseMode = false
 let colourMode = 'black'
+let coloursarray = []
 
 //Sets canvas width and height to small
 canvas.width = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.width)
@@ -68,16 +69,18 @@ sizeOptions.forEach(function(sizeOption){
 buttons.forEach(function(button){
     if(button.name === 'eraser'){
         button.addEventListener('click', eraseTrue)
-    }else{
+    } else {
         button.addEventListener('click', eraseFalse)
     }
-    if(button.hasAttribute('data-colour')){
+    if (button.hasAttribute('data-colour')) {
         button.addEventListener('click', colourPicker)
         button.innerHTML = "<p class='toolTipText'>" + button.name + ' brush!</p>'
+        coloursarray.push(button.dataset.colour)
     }
     button.addEventListener('click', textToggle)
     button.addEventListener('click', clickShow)
 })
+
 //Adds event listeners to the canvas
 if (canvas) {
     // Add an event listener to draw a line on dragging the mouse
@@ -121,11 +124,6 @@ function textHitTest(x, y, textIndex) {
     return (x >= text.x && x <= text.x + text.width && y >= text.y - text.height && y <= text.y)
 }
 
-/**
- * Function to start moving text, works out if the user has moved any text
- *
- * @param e
- */
 function startText(e) {
     //finds the users starting x and y position. parseInt parses a string argument and returns an integer. PageX -
     //the x coordinate of where the mouse event happened in the DOCUMENT (works with scroll). offsetLeft returns the left position relative
@@ -191,6 +189,25 @@ function clickShow(e){
         button.classList.remove('clicked')
     })
     e.currentTarget.classList.add('clicked')
+}
+
+let bgButton = document.querySelector('.changeBG')
+
+bgButton.addEventListener('click', backgroundChange)
+
+let bgCount = 0
+
+function backgroundOptions(){
+ canvas.style.background = coloursarray[bgCount]
+}
+
+function backgroundChange(){
+    if(bgCount === 6){
+        bgCount = 0
+    }else{
+        bgCount += 1
+    }
+    backgroundOptions()
 }
 
 /**
@@ -293,11 +310,15 @@ function drawLine(event) {
         if (!sizePicker.disabled) {
             sizePicker.disabled = true
         }
+        if (!bgButton.disabled) {
+            bgButton.disabled = true
+            bgButton.classList.add('disabled')
+        }
         // When painting, draw a line to...
         ctx.lineTo(event.offsetX, event.offsetY)
 
         if(eraseMode === true){
-            ctx.strokeStyle = 'white'
+            ctx.strokeStyle = canvas.style.background
             ctx.lineWidth = 20
         } else if(colourMode) {
             ctx.strokeStyle = colourMode
@@ -330,3 +351,4 @@ function textToggle(e) {
         canvas.style.pointerEvents = 'auto'
     }
 }
+

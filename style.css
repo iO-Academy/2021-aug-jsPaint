@@ -90,6 +90,11 @@ input {
     background-color: #ffa500;
 }
 
+.changeBG {
+    background-image: url('filler.png');
+    background-color: #FFFFFF;
+}
+
 .text {
     background-image: url('text.png');
 }
@@ -128,6 +133,7 @@ h1 {
     position: relative;
     left: 150px;
     z-index: 1;
+    bottom: 20px;
 }
 
 label:hover .toolTipText {
@@ -146,21 +152,30 @@ label:hover .toolTipText {
     height: auto;
 }
 
-.clicked{
-    border: black solid 5px;
+.changeBG:hover .toolTipText {
+    height: auto;
 }
 
 .clicked.painter {
     background-image: url('paintbrush.png');
+}
+
+.clicked{
     border: black solid 5px;
 }
 
-@media only screen and (min-height: 640px) {
-    .toolbar{
-        height: 100vh;
-    }
+.disabled {
+    opacity: 0.5;
 }
 
 .canvi {
     margin: 0 auto;
 }
+
+/*@media only screen and (min-height: 640px) {*/
+/*    .toolbar{*/
+/*        height: 100vh;*/
+/*    }*/
+/*}*/
+
+

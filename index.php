@@ -33,6 +33,9 @@
             <input type="hidden" id="textInput" />
             <input type="hidden" id="textSubmit" />
         </form>
+        <button class="changeBG" name="changeBG">
+            <p class="toolTipText">Click to cycle through our background colours!</p>
+        </button>
         <button class="print"></button>
     </div>
 </div>
