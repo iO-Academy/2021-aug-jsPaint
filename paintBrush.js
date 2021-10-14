@@ -74,6 +74,7 @@ buttons.forEach(function(button){
         button.addEventListener('click', colourPicker)
         button.innerHTML = "<p class='toolTipText'>" + button.name + ' brush!</p>'
     }
+    button.addEventListener('click', textToggle)
     button.addEventListener('click', clickShow)
 })
 //Adds event listeners to the canvas
@@ -173,16 +174,6 @@ function colourPicker(e){
 }
 
 /**
- * Changes size of canvas
- *
- * @param e
- */
-function sizeChange(e){
-    canvas.width = parseInt(e.currentTarget.options[e.currentTarget.selectedIndex].dataset.width)
-    canvas.height = parseInt(e.currentTarget.options[e.currentTarget.selectedIndex].dataset.height)
-}
-
-/**
  * Sets a class to a button so that when it is clicked the button gets a thick black outline
  *
  * @param e
@@ -259,8 +250,6 @@ textButton.addEventListener('click', e => {
     e.preventDefault()
     textInput.setAttribute('type', 'text')
     textSubmit.setAttribute('type', 'submit')
-    canvasTextC.style.pointerEvents =  'auto'
-    canvas.style.pointerEvents = 'none'
 })
 
 
@@ -300,4 +289,14 @@ function sizeChange(e){
     canvasTextC.height = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.height)
     canvi.style.width = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.width) + 'px'
     canvi.style.height = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.height) + 'px'
+}
+
+function textToggle(e) {
+    if (e.currentTarget.name === 'text') {
+        canvasTextC.style.pointerEvents = 'auto'
+        canvas.style.pointerEvents = 'none'
+    } else {
+        canvasTextC.style.pointerEvents = 'none'
+        canvas.style.pointerEvents = 'auto'
+    }
 }
