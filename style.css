@@ -3,8 +3,7 @@
 }
 
 body,
-.toolbar,
-main {
+.toolbar {
     display: flex;
 }
 
@@ -25,9 +24,9 @@ body  {
 }
 
 main {
+    text-align: center;
     width: 90vw;
     align-items: center;
-    overflow: auto;
     border: 20px solid #A45EE5;
 }
 
@@ -37,16 +36,26 @@ main {
     height: 600px;
     border: 2px solid #000000;
     cursor: crosshair;
+    position: absolute;
+    z-index: 1;
 }
 
 button {
     padding: 0 1vw;
-    margin: 1vw;
-    height: 50px;
+    min-height: 50px;
     background-color: #FFFFFF;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+}
+
+button{
+    margin: 10%;
+}
+
+input {
+    width: 80%;
+    margin: 10%;
 }
 
 .painter {
@@ -57,8 +66,29 @@ button {
     background-image: url('eraser.png');
 }
 
+.text {
+    background-image: url('text.png');
+}
+
 h1 {
     font-family: "Hiragino Maru Gothic Pro";
     color: #FFFFFF;
     overflow: hidden;
 }
+
+.canvasText {
+    position: relative;
+    width: 1100px;
+    height: 600px;
+    border: 2px solid #000000;
+    cursor: crosshair;
+    z-index:2;
+    pointer-events: none;
+}
+
+.canvi {
+    overflow: auto;
+}
+
+
+
