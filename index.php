@@ -19,11 +19,14 @@
             <option data-width="800" data-height="500">Medium</option>
             <option data-width="1200" data-height="700">Large</option>
         </select>
-        <button class="button eraser" name="eraser"><p class="toolTipText">Erase stuff from the canvas!</p></button>
+        <button class="button eraser" name="eraser">
+            <p class="toolTipText">Erase stuff from the canvas!</p></button>
         <label for="colourPicker"> Pick your brush!
+            <p class="toolTipText">Click on me to view our colour picker!</p>
             <input type="color" id="colourPicker" value="#000000" />
         </label>
         <label for="bgColour"> Pick your background colour!
+            <p class="toolTipText">Change your background before you paint!</p>
             <input type="color" id="bgColour" value="#FFFFFF" />
         </label>
         <button class="text" name="text" id="textButton">
