@@ -16,8 +16,6 @@ const textButton = document.querySelector('#textButton')
 const textInput = document.querySelector('#textInput')
 // Connects to the text form submit button
 const textSubmit = document.querySelector('#textSubmit')
-// Connects to all the buttons in the toolbar
-const buttons = document.querySelectorAll('.button')
 // Sets a connection to all the canvas size options
 const sizeOptions = document.querySelectorAll('#sizeForm > option')
 // Connects to <main>
