@@ -24,23 +24,27 @@
             <p class="toolTipText">Click to clear the canvas!</p>
         </button>
         <label for="colourPicker"> Pick your brush!
-            <input type="color" id="colourPicker" value="#000000" />
+            <input class="button" type="color" id="colourPicker" value="#000000" />
         </label>
         <label for="bgColour"> Pick your background colour!
-            <input type="color" id="bgColour" value="#FFFFFF" />
+            <input class="button" type="color" id="bgColour" value="#FFFFFF" />
         </label>
-        <button class="text" name="text" id="textButton">
+        <button class="text button" name="text" id="textButton">
             <p class="toolTipText">Type in text and submit it to add it to the canvas!</p>
         </button>
         <form id="textForm" class="textForm">
             <input type="hidden" id="textInput" />
             <input type="hidden" id="textSubmit" />
         </form>
+        <button class="print"></button>
     </div>
 </div>
     <main>
         <h1>Capybara Canvas</h1>
-        <canvas class="canvas"></canvas>
+            <div class="canvi">
+                <canvas class="canvas"></canvas>
+                <canvas class="canvasText"></canvas>
+            </div>
     </main>
 </body>
 </html>

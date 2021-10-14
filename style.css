@@ -35,7 +35,6 @@ main {
     text-align: center;
     width: 90vw;
     align-items: center;
-    overflow: auto;
     border: 20px solid #A45EE5;
 }
 
@@ -43,6 +42,8 @@ main {
     background-color: #FFFFFF;
     border: 2px solid #000000;
     cursor: crosshair;
+    position: absolute;
+    z-index: 1;
 }
 
 button {
@@ -69,18 +70,56 @@ input {
     background-color: #FFFFFF;
 }
 
+.red {
+    background-color: #ff0000;
+}
+
+.blue {
+    background-color: #0000FF;
+}
+
+.green {
+    background-color: #008000;
+}
+
+.yellow {
+    background-color: #ffff00;
+}
+
+.orange {
+    background-color: #ffa500;
+}
+
+.changeBG {
+    background-image: url('filler.png');
+    background-color: #FFFFFF;
+}
+
 .text {
     background-image: url('text.png');
 }
 
+
 .clearCan {
     background-image: url('clearIcon.png');
+}
+
+.print {
+    background-image: url('print.png');
 }
 
 h1 {
     font-family: "Hiragino Maru Gothic Pro", sans-serif;
     color: #FFFFFF;
     overflow: hidden;
+}
+
+.canvasText {
+    position: relative;
+    border: 2px solid #000000;
+    cursor: crosshair;
+    z-index:2;
+    pointer-events: none;
 }
 
 .sizeForm {
@@ -98,7 +137,8 @@ h1 {
     text-align: center;
     position: relative;
     left: 150px;
-    z-index: 1;
+    z-index: 100;
+    bottom: 20px;
 }
 
 label:hover .toolTipText {
@@ -117,12 +157,32 @@ label:hover .toolTipText {
     height: auto;
 }
 
-.clicked{
+.clicked {
     border: black solid 5px;
+}
+
+.changeBG:hover .toolTipText {
+    height: auto;
 }
 
 #sfLabel {
     height: 15px;
+}
+
+.clicked.painter {
+    background-image: url('paintbrush.png');
+}
+
+.clicked{
+    border: black solid 5px;
+}
+
+.disabled {
+    opacity: 0.5;
+}
+
+.canvi {
+    margin: 0 auto;
 }
 
 @media only screen and (min-height: 640px) {
@@ -130,7 +190,5 @@ label:hover .toolTipText {
         height: 100vh;
     }
 }
-
-
 
 
