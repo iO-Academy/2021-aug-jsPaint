@@ -26,12 +26,12 @@ let mode = 'brush'
 let painting = false
 
 // Adds an event listener which updates mode to brush on clicking brush button
-paintbrush.addEventListener('click', function (event) {
+paintbrush.addEventListener('click', function () {
     mode = 'brush'
 })
 
 // Adds an event listener which updates mode to eraser on clicking eraser button
-eraser.addEventListener('click', function (event) {
+eraser.addEventListener('click', function () {
     mode = 'eraser'
 })
 
@@ -63,7 +63,7 @@ function drawText() {
     let canvasWidth = document.querySelector('.canvasText').getAttribute('width')
     let canvasHeight = document.querySelector('.canvasText').getAttribute('height')
     //Clear the canvas - using the above calculated width and height
-    ctxText.clearRect(0, 0, canvasWidth, canvasHeight)
+    ctxText.clearRect(0, 0, parseInt(canvasWidth), parseInt(canvasHeight))
     //Loops through each item in the text array and uses the fill text function to add each text object to the canvas
     for (let i = 0; i < texts.length; i++) {
         let text = texts[i]
@@ -72,25 +72,23 @@ function drawText() {
 }
 
 //Test if the x,y is inside the bounding box of texts[textIndex]- if it has changed
-function textHittest(x, y, textIndex) {
+function textHitTest(x, y, textIndex) {
     let text = texts[textIndex]
     //returns a true or false statement
     return (x >= text.x && x <= text.x + text.width && y >= text.y - text.height && y <= text.y)
 }
 
 function startText(e) {
-    //finds the users starting x and y position. parseint parses a string argument and returns an integer. PageX -
-    //the x coordinate of where the mouse event happened in the DOCUMENT (works with scroll). offsetleft returns the left position relative
+    //finds the users starting x and y position. parseInt parses a string argument and returns an integer. PageX -
+    //the x coordinate of where the mouse event happened in the DOCUMENT (works with scroll). offsetLeft returns the left position relative
     //to the left side of the offsetParent element (nearest parent that has a position other than static.
-    startX = parseInt(e.pageX - canvasTextC.offsetLeft)
-    startY = parseInt(e.pageY - canvasTextC.offsetTop)
+    startX = e.pageX - canvasTextC.offsetLeft
+    startY = e.pageY - canvasTextC.offsetTop
 
-    console.log({startx: startX, starty: startY})
-
-    //Itterates through the texts[] array to check if each piece of text has been moved. If true sets the selectedText
+    //iterates through the texts[] array to check if each piece of text has been moved. If true sets the selectedText
     //index to its index in the array
     for (let i = 0; i < texts.length; i++) {
-        if (textHittest(startX, startY, i)) {
+        if (textHitTest(startX, startY, i)) {
             selectedText = i;
         }
     }
@@ -103,8 +101,8 @@ function stopText() {
 function moveText(event) {
         //If text has been selected- handle the mousemove event
         //Calculate where the mouse now is
-        mouseX = parseInt(event.pageX - canvasTextC.offsetLeft)
-        mouseY = parseInt(event.pageY - canvasTextC.offsetTop)
+        mouseX = event.pageX - canvasTextC.offsetLeft
+        mouseY = event.pageY - canvasTextC.offsetTop
 
         //Calculate how far the mouse has moved since the last mouseevent
         let dx = mouseX - startX
@@ -143,7 +141,7 @@ document.querySelector('form').addEventListener('submit', e => {
     ctxText.font = '50px "Hiragino Maru Gothic Pro"'
 
     //Calculate the size of the text for hit-testing purposes (checking whether the text has moved)
-    textObj.width = ctxText.measureText(text.text).width
+    textObj.width = ctxText.measureText(textSubmitted.text).width
     textObj.height = 50
 
     //Add the text object to the texts array
@@ -159,13 +157,13 @@ document.querySelector('.text').addEventListener('click', e => {
     e.preventDefault()
     document.querySelector('#text').setAttribute('type', 'text')
     document.querySelector('#submit').setAttribute('type', 'submit')
-    document.querySelector(".canvasText").style.pointerEvents =  "auto"
-    document.querySelector(".canvas").style.pointerEvents = "none"
+    document.querySelector('.canvasText').style.pointerEvents =  'auto'
+    document.querySelector('.canvas').style.pointerEvents = 'none'
 })
 
-//Iterates through the texts[] array and see's if the user clicked (mouseddown) on one of them
+//Iterates through the texts[] array and see's if the user clicked (mousedown) on one of them
 //If yes, sets the selectedText to the index of that text
-function startPainting(e) {
+function startPainting() {
     painting = true
 }
 
