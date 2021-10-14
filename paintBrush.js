@@ -1,3 +1,5 @@
+// Variables
+
 // Select the canvas in the dom
 const canvas = document.querySelector('canvas')
 // Sets the canvas to 2D drawing
@@ -6,26 +8,44 @@ const ctx = canvas.getContext('2d')
 const eraser = document.querySelector('.eraser')
 // Sets the connection to the canvas size menu
 const sizePicker = document.querySelector('#sizeForm')
-
-let buttons = document.querySelectorAll('.mode')
+// Connects to the text-box form
+const textForm = document.querySelector('#textForm')
+// Connects to the text button
+const textButton = document.querySelector('#textButton')
+// Connects to the text form input bar
+const textInput = document.querySelector('#textInput')
+// Connects to the text form submit button
+const textSubmit = document.querySelector('#textSubmit')
+// Sets a connection to all the canvas size options
+const sizeOptions = document.querySelectorAll('#sizeForm > option')
+// Connects to <main>
+const main = document.querySelector('main')
+// Sets the connection to the colour picker
+const colourPicker = document.querySelector('#colourPicker')
+// Sets the connection to the background colour picker
+const bgButton = document.querySelector('#bgColour')
 
 // Sets the default mode to brush and painting to false
 let painting = false
 let eraseMode = false
 let colourMode = 'black'
 
-buttons.forEach(function(button){
-    if(button.name === 'eraser'){
-        button.addEventListener('click', eraseTrue)
-    }else{
-        button.addEventListener('click', eraseFalse)
+//Sets canvas width and height to small
+canvas.width = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.width)
+canvas.height = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.height)
+// Disables canvas size options that are bigger than your viewport
+sizeOptions.forEach(function(sizeOption){
+    if(main.scrollWidth < sizeOption.dataset.width || main.scrollHeight < sizeOption.dataset.height) {
+        sizeOption.disabled = true
     }
-    if(button.hasAttribute('data-colour')){
-        button.addEventListener('click', colourPicker)
-        button.innerHTML = "<p class='toolTipText'>" + button.name + ' brush!</p>'
-    }
-    button.addEventListener('click', clickShow)
 })
+
+//Event listeners
+
+eraser.addEventListener('click', eraseTrue)
+colourPicker.addEventListener('click', eraseFalse)
+eraser.addEventListener('click', clickShow)
+colourPicker.addEventListener('change', pickColour)
 
 if (canvas) {
     // Add an event listener to draw a line on dragging the mouse
@@ -36,35 +56,29 @@ if (canvas) {
     canvas.addEventListener('mouseup', stopPainting);
     canvas.addEventListener('mouseleave', stopPainting);
 }
+//Adds event listener to the add text button, adds text to the canvas
+textForm.addEventListener('submit', e => {
+    e.preventDefault()
+    // created a variable to contain the users text input
+    const text = textInput.value
+    ctx.font = '50px "Hiragino Maru Gothic Pro"'
+    //create a fill text function that places the users text input at a set
+    //place on the canvas
+    ctx.fillText(text, 10, 50)
+})
 
+//when the text button is clicked, it should reveal the text input
+textButton.addEventListener('click', e => {
+    e.preventDefault()
+    textInput.setAttribute('type', 'text')
+    textSubmit.setAttribute('type', 'submit')
+})
+// Adds event listener to the canvas size menu
+sizePicker.addEventListener('change', sizeChange)
 
-/** Function to disconnect lines when not painting, paint where mouse is when clicking down
- * Dependant on mode set, use black for brush and white for eraser
- *
- * @param event
- */
-function drawLine(event) {
-    if (!painting) {
-        // When not painting, begin a new path
-        ctx.beginPath();
-        ctx.moveTo(event.offsetX, event.offsetY);
-    } else {
-        if (!sizePicker.disabled) {
-            sizePicker.disabled = true
-        }
-        // When painting, draw a line to...
-        ctx.lineTo(event.offsetX, event.offsetY)
-        if(eraseMode === true){
-            ctx.strokeStyle = 'white'
-            ctx.lineWidth = 20
-        } else if(colourMode) {
-            ctx.strokeStyle = colourMode
-            ctx.lineWidth = 5
-        }
-        ctx.stroke()
-    }
-}
+//Functions
 
+// Functions to stop and start painting, and erasing
 function stopPainting() {
     painting = false;
 }
@@ -86,7 +100,7 @@ document.querySelector('#textForm').addEventListener('submit', e => {
 
     e.preventDefault()
     // created a variable to contain the users text input
-    let text = document.querySelector('input').value
+    let text = document.querySelector('#text').value
     ctx.font = '50px "Hiragino Maru Gothic Pro"'
     //create a fill text function that places the users text input at a set
     //place on the canvas
@@ -105,33 +119,63 @@ sizePicker.addEventListener('change', sizeChange)
 canvas.width = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.width)
 canvas.height = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.height)
 
+
+/**
+ * Changes size of canvas
+ *
+ * @param e
+ */
 function sizeChange(e){
     canvas.width = parseInt(e.currentTarget.options[e.currentTarget.selectedIndex].dataset.width)
     canvas.height = parseInt(e.currentTarget.options[e.currentTarget.selectedIndex].dataset.height)
 }
 
-const sizeOptions = document.querySelectorAll('#sizeForm > option')
-const main = document.querySelector('main')
-sizeOptions.forEach(function(sizeOption){
-    if(main.scrollWidth < sizeOption.dataset.width || main.scrollHeight < sizeOption.dataset.height) {
-        sizeOption.disabled = true
-    }
-})
-
-function colourPicker(e){
-    colourMode = e.currentTarget.dataset.colour
+/**
+ * Sets a class to a button so that when it is clicked the button gets a thick black outline
+ *
+ */
+function pickColour() {
+    colourMode = colourPicker.value
 }
 
-/*
-Sets a class to a button so that when it is clicked the button gets a thick black outline
- */
-function clickShow(e){
-    buttons.forEach(function(button){
-        button.classList.remove('clicked')
-    })
+function clickShow(e) {
+    eraser.classList.remove('clicked')
     e.currentTarget.classList.add('clicked')
 }
 
+/** Function to disconnect lines when not painting, paint where mouse is when clicking down
+ * Dependant on mode set, use black for brush and white for eraser
+ *
+ * @param event
+ */
+function drawLine(event) {
+    if (!painting) {
+        // When not painting, begin a new path
+        ctx.beginPath();
+        ctx.moveTo(event.offsetX, event.offsetY);
+    } else {
+        if (!sizePicker.disabled) {
+            sizePicker.disabled = true
+            bgButton.disabled = true
+        }
+        // When painting, draw a line to...
+        ctx.lineTo(event.offsetX, event.offsetY)
+        if(eraseMode === true){
+            ctx.strokeStyle = canvas.style.background
+            ctx.lineWidth = 20
+        } else if(colourMode) {
+            ctx.strokeStyle = colourMode
+            ctx.lineWidth = 5
+        }
+        ctx.stroke()
+    }
+}
 
 
+bgButton.addEventListener('change', bgChange)
 
+function bgChange(){
+    canvas.style.background = bgButton.value
+}
+
+console.log(bgButton)
