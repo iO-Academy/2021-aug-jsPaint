@@ -122,6 +122,15 @@ function clickShow(e){
     e.currentTarget.classList.add('clicked')
 }
 
+///////////
+
+let bgButton = document.querySelector('#bgColour')
+
+bgButton.addEventListener('change', bgChange)
+
+function bgChange(){
+    canvas.style.background = bgButton.value
+}
 
 
 

@@ -20,7 +20,7 @@ body  {
 label {
     color: #FFFFFF;
     text-align: center;
-    height: 15px;
+    /*height: 15px;*/
     margin: 5%;
 }
 
@@ -141,6 +141,10 @@ label:hover .toolTipText {
 .clicked.eraser {
     background-image: url('eraser.png');
     border: black solid 7px;
+}
+
+#sfLabel {
+    height: 15px;
 }
 
 @media only screen and (min-height: 640px) {
