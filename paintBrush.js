@@ -42,6 +42,9 @@ sizeOptions.forEach(function(sizeOption){
     }
 })
 
+// Sets the initial background colour to white
+canvas.style.background = 'white'
+
 //Event listeners
 
 eraser.addEventListener('click', eraseTrue)
@@ -192,4 +195,5 @@ function clearClicked(){
         bgButton.disabled = false
     }
 }
+
 
