@@ -37,7 +37,12 @@
 </div>
     <main>
         <h1>Capybara Canvas</h1>
-        <canvas class="canvas"></canvas>
+            <div class="canvi">
+                <canvas class="canvas"></canvas>
+<!--        // make a second Canvas, (we want to position it over the first canvas with a transparent background. make sure-->
+<!--        // in JS the paint canvas selection only picks the painting (lower) canvas.-->
+                <canvas class="canvasText"></canvas>
+            </div>
     </main>
 </body>
 </html>
