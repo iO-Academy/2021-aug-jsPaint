@@ -22,6 +22,8 @@ const sizeOptions = document.querySelectorAll('#sizeForm > option')
 const main = document.querySelector('main')
 // Sets the connection to the colour picker
 const colourPicker = document.querySelector('#colourPicker')
+// Sets the connection to the background colour picker
+const bgButton = document.querySelector('#bgColour')
 
 // Sets the default mode to brush and painting to false
 let painting = false
@@ -131,15 +133,12 @@ function sizeChange(e){
 /**
  * Sets a class to a button so that when it is clicked the button gets a thick black outline
  *
- * @param e
  */
-
-
-function pickColour(){
+function pickColour() {
     colourMode = colourPicker.value
 }
 
-function clickShow(e){
+function clickShow(e) {
     eraser.classList.remove('clicked')
     e.currentTarget.classList.add('clicked')
 }
@@ -157,11 +156,12 @@ function drawLine(event) {
     } else {
         if (!sizePicker.disabled) {
             sizePicker.disabled = true
+            bgButton.disabled = true
         }
         // When painting, draw a line to...
         ctx.lineTo(event.offsetX, event.offsetY)
         if(eraseMode === true){
-            ctx.strokeStyle = 'white'
+            ctx.strokeStyle = canvas.style.background
             ctx.lineWidth = 20
         } else if(colourMode) {
             ctx.strokeStyle = colourMode
@@ -171,10 +171,11 @@ function drawLine(event) {
     }
 }
 
-let bgButton = document.querySelector('#bgColour')
 
 bgButton.addEventListener('change', bgChange)
 
 function bgChange(){
     canvas.style.background = bgButton.value
 }
+
+console.log(bgButton)

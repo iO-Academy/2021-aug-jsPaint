@@ -20,15 +20,13 @@
             <option data-width="1200" data-height="700">Large</option>
         </select>
         <button class="button eraser" name="eraser"><p class="toolTipText">Erase stuff from the canvas!</p></button>
-        <button class="button text" id="textButton" name="text">
-        <button class="mode eraser" name="eraser"><p class="toolTipText">Erase stuff from the canvas!</p></button>
         <label for="colourPicker"> Pick your brush!
             <input type="color" id="colourPicker" value="#000000" />
         </label>
         <label for="bgColour"> Pick your background colour!
             <input type="color" id="bgColour" value="#FFFFFF" />
         </label>
-        <button class="text" name="text">
+        <button class="text" name="text" id="textButton">
             <p class="toolTipText">Type in text and submit it to add it to the canvas!</p>
         </button>
         <form id="textForm" class="textForm">
