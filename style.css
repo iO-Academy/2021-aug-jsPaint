@@ -172,10 +172,10 @@ label:hover .toolTipText {
     margin: 0 auto;
 }
 
-@media only screen and (min-height: 640px) {
-    .toolbar{
-        height: 100vh;
-    }
-}
+/*@media only screen and (min-height: 640px) {*/
+/*    .toolbar{*/
+/*        height: 100vh;*/
+/*    }*/
+/*}*/
 
 
