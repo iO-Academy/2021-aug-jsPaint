@@ -179,3 +179,14 @@ function bgChange(){
 }
 
 console.log(bgButton)
+
+
+
+const clearCan = document.querySelector('.clearCan')
+clearCan.addEventListener('click', clearClicked)
+
+function clearClicked(){
+    if (confirm("Are you sure you want to clear the canvas?")) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+    }
+}

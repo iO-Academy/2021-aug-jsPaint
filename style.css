@@ -73,6 +73,10 @@ input {
     background-image: url('text.png');
 }
 
+.clearCan {
+    background-image: url('clearIcon.png');
+}
+
 h1 {
     font-family: "Hiragino Maru Gothic Pro", sans-serif;
     color: #FFFFFF;
@@ -106,6 +110,10 @@ label:hover .toolTipText {
 }
 
 .eraser:hover .toolTipText {
+    height: auto;
+}
+
+.clearCan:hover .toolTipText {
     height: auto;
 }
 

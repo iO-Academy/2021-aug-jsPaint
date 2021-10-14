@@ -20,6 +20,9 @@
             <option data-width="1200" data-height="700">Large</option>
         </select>
         <button class="button eraser" name="eraser"><p class="toolTipText">Erase stuff from the canvas!</p></button>
+        <button class="clearCan" name="clearCan">
+            <p class="toolTipText">Click to clear the canvas!</p>
+        </button>
         <label for="colourPicker"> Pick your brush!
             <input type="color" id="colourPicker" value="#000000" />
         </label>
