@@ -42,13 +42,16 @@ const buttons = document.querySelectorAll('.button')
 const sizeOptions = document.querySelectorAll('#sizeForm > option')
 // Connects to <main>
 const main = document.querySelector('main')
+// Sets the connection to the colour picker
+const colourPicker = document.querySelector('#colourPicker')
+// Sets the connection to the background colour picker
+const bgButton = document.querySelector('#bgColour')
 
 canvas.style.background = "white"
 // Sets the default mode to brush and painting to false
 let painting = false
 let eraseMode = false
 let colourMode = 'black'
-let coloursarray = []
 
 //Sets canvas width and height to small
 canvas.width = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.width)
@@ -59,23 +62,23 @@ canvi.style.width = parseInt(sizePicker.options[sizePicker.selectedIndex].datase
 canvi.style.height = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.height) + 'px'
 // Disables canvas size options that are bigger than your viewport
 sizeOptions.forEach(function(sizeOption){
-    if(main.scrollWidth < sizeOption.dataset.width || main.scrollHeight < sizeOption.dataset.height) {
+    if((window.innerWidth - 200) < sizeOption.dataset.width || (window.innerHeight - 100) < sizeOption.dataset.height) {
         sizeOption.disabled = true
     }
 })
 
 //Event listeners
+eraser.addEventListener('click', eraseTrue)
+colourPicker.addEventListener('click', eraseFalse)
+eraser.addEventListener('click', clickShow)
+colourPicker.addEventListener('change', pickColour)
+
 //Add event listeners to all the buttons
 buttons.forEach(function(button){
     if(button.name === 'eraser'){
         button.addEventListener('click', eraseTrue)
     } else {
         button.addEventListener('click', eraseFalse)
-    }
-    if (button.hasAttribute('data-colour')) {
-        button.addEventListener('click', colourPicker)
-        button.innerHTML = "<p class='toolTipText'>" + button.name + ' brush!</p>'
-        coloursarray.push(button.dataset.colour)
     }
     button.addEventListener('click', textToggle)
     button.addEventListener('click', clickShow)
@@ -168,47 +171,52 @@ function startPainting() {
     painting = true;
 }
 
-/**
- * Changes colour mode when a colour button is selected
- *
- * @param e
- */
-function colourPicker(e){
-    colourMode = e.currentTarget.dataset.colour
-}
+//story 7
+document.querySelector('#textForm').addEventListener('submit', e => {
+
+    e.preventDefault()
+    // created a variable to contain the users text input
+    let text = document.querySelector('#text').value
+    ctx.font = '50px "Hiragino Maru Gothic Pro"'
+    //create a fill text function that places the users text input at a set
+    //place on the canvas
+    ctx.fillText(text, 10, 50)
+})
+
+//when the text button is clicked, it should reveal the text input
+document.querySelector('.text').addEventListener('click', e => {
+    e.preventDefault()
+    document.querySelector('#text').setAttribute('type', 'text')
+    document.querySelector('#submit').setAttribute('type', 'submit')
+})
 
 /**
  * Sets a class to a button so that when it is clicked the button gets a thick black outline
  *
- * @param e
  */
+function pickColour() {
+    colourMode = colourPicker.value
+}
 
-
-function clickShow(e){
-    buttons.forEach(function(button){
-        button.classList.remove('clicked')
-    })
+function clickShow(e) {
+    eraser.classList.remove('clicked')
     e.currentTarget.classList.add('clicked')
 }
 
-let bgButton = document.querySelector('.changeBG')
+// let bgCount = 0
+//
+// function backgroundOptions(){
+//  canvas.style.background = coloursarray[bgCount]
+// }
 
-bgButton.addEventListener('click', backgroundChange)
-
-let bgCount = 0
-
-function backgroundOptions(){
- canvas.style.background = coloursarray[bgCount]
-}
-
-function backgroundChange(){
-    if(bgCount === 6){
-        bgCount = 0
-    }else{
-        bgCount += 1
-    }
-    backgroundOptions()
-}
+// function backgroundChange(){
+//     if(bgCount === 6){
+//         bgCount = 0
+//     }else{
+//         bgCount += 1
+//     }
+//     backgroundOptions()
+// }
 
 /**
  * Function to stop adding and moving text
@@ -249,7 +257,7 @@ formText.addEventListener('submit', e => {
 
     e.preventDefault()
     //Create a variable to contain the users text input
-    let textSubmitted = document.querySelector('input').value
+    let textSubmitted = document.querySelector('#textInput').value
 
     //Calc the y coordinate for this text on the canvas
     let y = texts.length * 50 + 50
@@ -309,6 +317,7 @@ function drawLine(event) {
     } else {
         if (!sizePicker.disabled) {
             sizePicker.disabled = true
+            bgButton.disabled = true
         }
         if (!bgButton.disabled) {
             bgButton.disabled = true
@@ -326,6 +335,15 @@ function drawLine(event) {
         }
         ctx.stroke()
     }
+}
+
+bgButton.addEventListener('change', bgChange)
+
+/**
+ * Changes to colour of the canvas to the colour selected on the background button
+ */
+function bgChange(){
+    canvas.style.background = bgButton.value
 }
 
 function sizeChange(e){
