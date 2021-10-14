@@ -19,29 +19,34 @@
             <option data-width="800" data-height="500">Medium</option>
             <option data-width="1200" data-height="700">Large</option>
         </select>
-        <button class="mode black painter clicked" data-colour="#000000" name="black"></button>
-        <button class="mode red painter" data-colour="#ff0000" name="red"></button>
-        <button class="mode blue painter" data-colour="#0000ff" name="blue"></button>
-        <button class="mode green painter" data-colour="#008000" name="green"></button>
-        <button class="mode yellow painter" data-colour="#ffff00" name="yellow"></button>
-        <button class="mode orange painter" data-colour="#ffa500" name="orange"></button>
-        <button class="mode eraser" name="eraser"><p class="toolTipText">Erase stuff from the canvas!</p></button>
-        <button class="text" name="text">
+        <button class="button black painter clicked" data-colour="#000000" name="black"></button>
+        <button class="button red painter" data-colour="#ff0000" name="red"></button>
+        <button class="button blue painter" data-colour="#0000ff" name="blue"></button>
+        <button class="button green painter" data-colour="#008000" name="green"></button>
+        <button class="button yellow painter" data-colour="#ffff00" name="yellow"></button>
+        <button class="button orange painter" data-colour="#ffa500" name="orange"></button>
+        <button class="button eraser" name="eraser"><p class="toolTipText">Erase stuff from the canvas!</p></button>
+        <button class="button text" id="textButton" name="text">
             <p class="toolTipText">Type in text and submit it to add it to the canvas!</p>
         </button>
         <form id="textForm" class="textForm">
-            <input type="hidden" id="text" />
-            <input type="hidden" id="submit" />
+            <input type="hidden" id="textInput" />
+            <input type="hidden" id="textSubmit" />
         </form>
         <button class="changeBG" name="changeBG">
             <p class="toolTipText">Click to cycle through our background colours!</p>
         </button>
-
+        <button class="print"></button>
     </div>
 </div>
     <main>
         <h1>Capybara Canvas</h1>
-        <canvas class="canvas"></canvas>
+            <div class="canvi">
+                <canvas class="canvas"></canvas>
+<!--        // make a second Canvas, (we want to position it over the first canvas with a transparent background. make sure-->
+<!--        // in JS the paint canvas selection only picks the painting (lower) canvas.-->
+                <canvas class="canvasText"></canvas>
+            </div>
     </main>
 </body>
 </html>

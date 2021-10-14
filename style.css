@@ -35,7 +35,6 @@ main {
     text-align: center;
     width: 90vw;
     align-items: center;
-    overflow: auto;
     border: 20px solid #A45EE5;
 }
 
@@ -43,6 +42,8 @@ main {
     background-color: #FFFFFF;
     border: 2px solid #000000;
     cursor: crosshair;
+    position: absolute;
+    z-index: 1;
 }
 
 button {
@@ -68,6 +69,7 @@ input {
     background-image: url('eraser.png');
     background-color: #FFFFFF;
 }
+
 .red {
     background-color: #ff0000;
 }
@@ -97,13 +99,25 @@ input {
     background-image: url('text.png');
 }
 
+.print {
+    background-image: url('print.png');
+}
+
 h1 {
     font-family: "Hiragino Maru Gothic Pro", sans-serif;
     color: #FFFFFF;
     overflow: hidden;
 }
 
-.sizeForm{
+.canvasText {
+    position: relative;
+    border: 2px solid #000000;
+    cursor: crosshair;
+    z-index:2;
+    pointer-events: none;
+}
+
+.sizeForm {
     margin: 1vw;
     text-align: center;
 }
@@ -144,16 +158,18 @@ label:hover .toolTipText {
 
 .clicked.painter {
     background-image: url('paintbrush.png');
-    border: black solid 5px;
 }
 
-.clicked.eraser {
-    background-image: url('eraser.png');
-    border: black solid 7px;
+.clicked{
+    border: black solid 5px;
 }
 
 .disabled {
     opacity: 0.5;
+}
+
+.canvi {
+    margin: 0 auto;
 }
 
 @media only screen and (min-height: 640px) {
@@ -161,6 +177,5 @@ label:hover .toolTipText {
         height: 100vh;
     }
 }
-
 
 
