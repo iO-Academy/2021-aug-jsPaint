@@ -120,6 +120,11 @@ function textHitTest(x, y, textIndex) {
     return (x >= text.x && x <= text.x + text.width && y >= text.y - text.height && y <= text.y)
 }
 
+/**
+ * Function to start moving text, works out if the user has moved any text
+ *
+ * @param e
+ */
 function startText(e) {
     //finds the users starting x and y position. parseInt parses a string argument and returns an integer. PageX -
     //the x coordinate of where the mouse event happened in the DOCUMENT (works with scroll). offsetLeft returns the left position relative
@@ -187,10 +192,18 @@ function clickShow(e){
     e.currentTarget.classList.add('clicked')
 }
 
+/**
+ * Function to stop adding and moving text
+ */
 function stopText() {
     selectedText = -1
 }
 
+/**
+ * Function to move text added to the text canvas around the text canvas
+ *
+ * @param event
+ */
 function moveText(event) {
         //If text has been selected- handle the mousemove event
         //Calculate where the mouse now is
@@ -291,6 +304,11 @@ function sizeChange(e){
     canvi.style.height = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.height) + 'px'
 }
 
+/**
+ * Function to toggle between text and paint mouse events
+ *
+ * @param e
+ */
 function textToggle(e) {
     if (e.currentTarget.name === 'text') {
         canvasTextC.style.pointerEvents = 'auto'
