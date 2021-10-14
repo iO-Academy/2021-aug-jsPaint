@@ -119,7 +119,7 @@ h1 {
 
 .canvasWrap {
     position: relative;
-
+    overflow:hidden;
 }
 
 .sizeForm{

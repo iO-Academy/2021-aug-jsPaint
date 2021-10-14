@@ -4,24 +4,48 @@ const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 // Sets the connection to the eraser button
 const eraser = document.querySelector('.eraser')
+// connects to the text button submit form
 const textButtonSubmit = document.querySelector('#submit')
+// Connects to the text button input bar
 const textInput = document.querySelector('#text')
+
 const formSubmit = document.querySelector('form')
 const toAddText = document.querySelector("#toAddText")
 const canvasWrap = document.querySelector("#canvasWrap")
 const sizePicker = document.querySelector('#sizeForm')
 const buttons = document.querySelectorAll('.mode')
+const sizeOptions = document.querySelectorAll('#sizeForm > option')
+const main = document.querySelector('main')
+const textButton = document.querySelector('#textButton')
 
 // Sets the default mode to brush and painting to false
 let painting = false
 let eraseMode = false
 let colourMode = 'black'
 let textBoxCount = 0
+let activeItem = null
+let active = false
 
-sizePicker.addEventListener('change', sizeChange)
+sizeOptions.forEach(function(sizeOption){
+    if(main.scrollWidth < sizeOption.dataset.width || main.scrollHeight < sizeOption.dataset.height) {
+        sizeOption.disabled = true
+    }
+})
+
 canvas.width = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.width)
 canvas.height = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.height)
+canvasWrap.style.width = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.width) + 'px'
+canvasWrap.style.height = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.height) + 'px'
 
+toAddText.addEventListener('touchstart', dragStart, false)
+toAddText.addEventListener("touchend", dragEnd, false)
+toAddText.addEventListener("touchmove", drag, false)
+
+toAddText.addEventListener("mousedown", dragStart, false)
+toAddText.addEventListener("mouseup", dragEnd, false)
+toAddText.addEventListener("mousemove", drag, false)
+
+sizePicker.addEventListener('change', sizeChange)
 
 textButtonSubmit.addEventListener('click', function () {
     textInput.type = 'text'
@@ -52,6 +76,17 @@ if (canvas) {
     canvas.addEventListener('mouseleave', stopPainting);
 }
 
+//when the text button is clicked, it should reveal the text input
+textButton.addEventListener('click', e => {
+    e.preventDefault()
+    document.querySelector('#text').setAttribute('type', 'text')
+    document.querySelector('#submit').setAttribute('type', 'submit')
+})
+
+formSubmit.addEventListener('submit', e => {
+    e.preventDefault()
+    toAddText.innerHTML += makeText()
+})
 
 /** Function to disconnect lines when not painting, paint where mouse is when clicking down
  * Dependant on mode set, use black for brush and white for eraser
@@ -96,28 +131,7 @@ function startPainting() {
     painting = true;
 }
 
-//story 7
-// document.querySelector('form').addEventListener('submit', e => {
-//     e.preventDefault()
-//     // created a variable to contain the users text input
-//     let text = document.querySelector('input').value
-//     ctx.font = '50px "Hiragino Maru Gothic Pro"'
-//     //create a fill text function that places the users text input at a set
-//     //place on the canvas
-//     ctx.fillText(text, 10, 50)
-// })
 
-//when the text button is clicked, it should reveal the text input
-document.querySelector('.text').addEventListener('click', e => {
-    e.preventDefault()
-    document.querySelector('#text').setAttribute('type', 'text')
-    document.querySelector('#submit').setAttribute('type', 'submit')
-})
-
-formSubmit.addEventListener('submit', e => {
-    e.preventDefault()
-    toAddText.innerHTML += makeText()
-})
 
 function makeText() {
     let output = ''
@@ -136,14 +150,6 @@ function sizeChange(e){
     canvasWrap.style.width = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.width) + 'px'
     canvasWrap.style.height = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.height) + 'px'
 }
-
-const sizeOptions = document.querySelectorAll('#sizeForm > option')
-const main = document.querySelector('main')
-sizeOptions.forEach(function(sizeOption){
-    if(main.scrollWidth < sizeOption.dataset.width || main.scrollHeight < sizeOption.dataset.height) {
-        sizeOption.disabled = true
-    }
-})
 
 function colourPicker(e){
     colourMode = e.currentTarget.dataset.colour
@@ -167,41 +173,24 @@ function textToggle(e) {
     }
 }
 
-// Container: toAddText
-// Text-boxes: textBoxes
-let activeItem = null
-let active = false
 
-toAddText.addEventListener('touchstart', dragStart, false)
-toAddText.addEventListener("touchend", dragEnd, false)
-toAddText.addEventListener("touchmove", drag, false)
-
-toAddText.addEventListener("mousedown", dragStart, false)
-toAddText.addEventListener("mouseup", dragEnd, false)
-toAddText.addEventListener("mousemove", drag, false)
 
 function dragStart(e) {
-
     if (e.target !== e.currentTarget) {
         active = true;
-
         // this is the item we are interacting with
         activeItem = e.target;
-
         if (activeItem !== null) {
             if (!activeItem.xOffset) {
                 activeItem.xOffset = 0;
             }
-
             if (!activeItem.yOffset) {
                 activeItem.yOffset = 0;
             }
-
             if (e.type === "touchstart") {
                 activeItem.initialX = e.touches[0].clientX - activeItem.xOffset;
                 activeItem.initialY = e.touches[0].clientY - activeItem.yOffset;
             } else {
-                console.log("doing something!");
                 activeItem.initialX = e.clientX - activeItem.xOffset;
                 activeItem.initialY = e.clientY - activeItem.yOffset;
             }
@@ -214,7 +203,6 @@ function dragEnd() {
         activeItem.initialX = activeItem.currentX;
         activeItem.initialY = activeItem.currentY;
     }
-
     active = false;
     activeItem = null;
 }
@@ -223,21 +211,18 @@ function drag(e) {
     if (active) {
         if (e.type === "touchmove") {
             e.preventDefault();
-
             activeItem.currentX = e.touches[0].clientX - activeItem.initialX;
             activeItem.currentY = e.touches[0].clientY - activeItem.initialY;
         } else {
             activeItem.currentX = e.clientX - activeItem.initialX;
             activeItem.currentY = e.clientY - activeItem.initialY;
         }
-
         activeItem.xOffset = activeItem.currentX;
         activeItem.yOffset = activeItem.currentY;
-
         setTranslate(activeItem.currentX, activeItem.currentY, activeItem);
     }
 }
 
-function setTranslate(xPos, yPos, el) {
-    el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
+function setTranslate(xPos, yPos, item) {
+    item.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
 }
