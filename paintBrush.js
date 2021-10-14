@@ -49,12 +49,12 @@ if (canvas) {
 // If there is a text canvas
 if (canvasTextC) {
     // Add an event listener to draw a line on dragging the mouse
-    canvasTextC.addEventListener('mousemove', drawLine)
+    canvasTextC.addEventListener('mousemove', moveText)
     // Start painting on click event
-    canvasTextC.addEventListener('mousedown', startPainting)
+    canvasTextC.addEventListener('mousedown', startText)
     // Stop painting on stopping clicking/off page
-    canvasTextC.addEventListener('mouseup', stopPainting)
-    canvasTextC.addEventListener('mouseleave', stopPainting)
+    canvasTextC.addEventListener('mouseup', stopText)
+    canvasTextC.addEventListener('mouseleave', stopText)
 }
 
 //Draw text clears the canvas and redraws it based on the texts array
@@ -78,14 +78,10 @@ function textHittest(x, y, textIndex) {
     return (x >= text.x && x <= text.x + text.width && y >= text.y - text.height && y <= text.y)
 }
 
-//Iterates through the texts[] array and see's if the user clicked (mouseddown) on one of them
-//If yes, sets the selectedText to the index of that text
-function startPainting(e) {
+function startText(e) {
     //finds the users starting x and y position. parseint parses a string argument and returns an integer. PageX -
     //the x coordinate of where the mouse event happened in the DOCUMENT (works with scroll). offsetleft returns the left position relative
     //to the left side of the offsetParent element (nearest parent that has a position other than static.
-    // startX = parseInt(e.clientX - canvasTextC.offsetLeft)
-    // startY = parseInt(e.clientY - canvasTextC.offsetTop)
     startX = parseInt(e.pageX - canvasTextC.offsetLeft)
     startY = parseInt(e.pageY - canvasTextC.offsetTop)
 
@@ -98,45 +94,14 @@ function startPainting(e) {
             selectedText = i;
         }
     }
-
-    //if no text has been moved, sets painting to true
-    if (selectedText === -1) {
-        painting = true
-    }
 }
 
-function stopPainting() {
-    painting = false
+function stopText() {
     selectedText = -1
 }
 
-/** Function to disconnect lines when not painting, paint where mouse is when clicking down
- * Dependant on mode set, use black for brush and white for eraser
- *
- * @param event
- */
-function drawLine(event) {
-    //If no text has been selected either paint or erase
-    if (selectedText < 0) {
-        if (!painting) {
-            // When not painting, begin a new path
-            ctx.beginPath();
-            ctx.moveTo(event.offsetX, event.offsetY)
-        } else {
-            // When painting, draw a line to...
-            ctx.lineTo(event.offsetX, event.offsetY)
-            // If the mode is set to brush, draw in black
-            if (mode === 'brush') {
-                ctx.strokeStyle = '#000000'
-                ctx.lineWidth = 5
-                // if the mode is set to eraser, draw white lines
-            } else if (mode === 'eraser') {
-                ctx.strokeStyle = '#FFFFFF'
-                ctx.lineWidth = 15
-            }
-            ctx.stroke()
-        }
-    } else {    //If text has been selected- handle the mousemove event
+function moveText(event) {
+        //If text has been selected- handle the mousemove event
         //Calculate where the mouse now is
         mouseX = parseInt(event.pageX - canvasTextC.offsetLeft)
         mouseY = parseInt(event.pageY - canvasTextC.offsetTop)
@@ -156,10 +121,8 @@ function drawLine(event) {
         text.y += dy
         //Redraw the text canvas
         drawText()
-    }
 }
 
-//story 7
 document.querySelector('form').addEventListener('submit', e => {
 
     e.preventDefault()
@@ -199,3 +162,40 @@ document.querySelector('.text').addEventListener('click', e => {
     document.querySelector(".canvasText").style.pointerEvents =  "auto"
     document.querySelector(".canvas").style.pointerEvents = "none"
 })
+
+//Iterates through the texts[] array and see's if the user clicked (mouseddown) on one of them
+//If yes, sets the selectedText to the index of that text
+function startPainting(e) {
+    painting = true
+}
+
+function stopPainting() {
+    painting = false
+    selectedText = -1
+}
+
+/** Function to disconnect lines when not painting, paint where mouse is when clicking down
+ * Dependant on mode set, use black for brush and white for eraser
+ *
+ * @param event
+ */
+function drawLine(event) {
+    if (!painting) {
+        // When not painting, begin a new path
+        ctx.beginPath();
+        ctx.moveTo(event.offsetX, event.offsetY)
+    } else {
+        // When painting, draw a line to...
+        ctx.lineTo(event.offsetX, event.offsetY)
+        // If the mode is set to brush, draw in black
+        if (mode === 'brush') {
+            ctx.strokeStyle = '#000000'
+            ctx.lineWidth = 5
+            // if the mode is set to eraser, draw white lines
+        } else if (mode === 'eraser') {
+            ctx.strokeStyle = '#FFFFFF'
+            ctx.lineWidth = 15
+        }
+        ctx.stroke()
+    }
+}
