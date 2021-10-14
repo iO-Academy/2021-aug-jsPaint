@@ -26,7 +26,7 @@
         <button class="mode yellow painter" data-colour="#ffff00" name="yellow"></button>
         <button class="mode orange painter" data-colour="#ffa500" name="orange"></button>
         <button class="mode eraser" name="eraser"><p class="toolTipText">Erase stuff from the canvas!</p></button>
-        <button class="text" name="text">
+        <button class="mode text" id='textButton' name="text">
             <p class="toolTipText">Type in text and submit it to add it to the canvas!</p>
         </button>
         <form id="textForm" class="textForm">
@@ -37,7 +37,11 @@
 </div>
     <main>
         <h1>Capybara Canvas</h1>
-        <canvas class="canvas"></canvas>
+        <div class="canvasWrap" id="canvasWrap">
+            <div class="toAddText" id="toAddText">
+            </div>
+            <canvas class="canvas" width="1100" height="600"></canvas>
+        </div>
     </main>
 </body>
 </html>

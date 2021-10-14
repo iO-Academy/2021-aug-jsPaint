@@ -45,7 +45,10 @@ main {
     cursor: crosshair;
 }
 
-button {
+
+
+button{
+
     padding: 0 5px;
     height: 40px;
     background-color: #FFFFFF;
@@ -98,6 +101,27 @@ h1 {
     overflow: hidden;
 }
 
+.toAddText {
+    position: absolute;
+    left: 0;
+    top: 0;
+    pointer-events: none;
+}
+
+.textBox{
+    position: absolute;
+    left: 0;
+    top: 0;
+    cursor: grabbing;
+    user-select: none;
+    padding: 10px;
+}
+
+.canvasWrap {
+    position: relative;
+    overflow:hidden;
+}
+
 .sizeForm{
     margin: 1vw;
     text-align: center;
@@ -133,15 +157,19 @@ label:hover .toolTipText {
     height: auto;
 }
 
+.clicked{
+    border: black solid 5px;
+}
+
 .clicked.painter {
     background-image: url('paintbrush.png');
     border: black solid 5px;
 }
 
 .clicked.eraser {
-    background-image: url('eraser.png');
     border: black solid 7px;
 }
+
 
 @media only screen and (min-height: 640px) {
     .toolbar{
