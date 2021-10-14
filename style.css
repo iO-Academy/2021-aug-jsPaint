@@ -69,28 +69,12 @@ input {
     background-color: #FFFFFF;
 }
 
-.red {
-    background-color: #ff0000;
-}
-
-.blue {
-    background-color: #0000FF;
-}
-
-.green {
-    background-color: #008000;
-}
-
-.yellow {
-    background-color: #ffff00;
-}
-
-.orange {
-    background-color: #ffa500;
-}
-
 .text {
     background-image: url('text.png');
+}
+
+.clearCan {
+    background-image: url('clearIcon.png');
 }
 
 h1 {
@@ -125,20 +109,15 @@ label:hover .toolTipText {
     height: auto;
 }
 
-.painter:hover .toolTipText {
-    height: auto;
-}
-
 .eraser:hover .toolTipText {
     height: auto;
 }
 
-.clicked{
-    border: black solid 5px;
+.clearCan:hover .toolTipText {
+    height: auto;
 }
 
-.clicked.painter {
-    background-image: url('paintbrush.png');
+.clicked{
     border: black solid 5px;
 }
 
