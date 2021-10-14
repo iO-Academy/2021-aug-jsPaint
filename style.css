@@ -99,6 +99,11 @@ input {
     background-image: url('text.png');
 }
 
+
+.clearCan {
+    background-image: url('clearIcon.png');
+}
+
 .print {
     background-image: url('print.png');
 }
@@ -146,6 +151,14 @@ label:hover .toolTipText {
 
 .eraser:hover .toolTipText {
     height: auto;
+}
+
+.clearCan:hover .toolTipText {
+    height: auto;
+}
+
+.clicked {
+    border: black solid 5px;
 }
 
 .changeBG:hover .toolTipText {

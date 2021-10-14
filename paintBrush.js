@@ -46,6 +46,8 @@ const main = document.querySelector('main')
 const colourPicker = document.querySelector('#colourPicker')
 // Sets the connection to the background colour picker
 const bgButton = document.querySelector('#bgColour')
+// Sets the connection to the clear canvas button
+const clearCan = document.querySelector('.clearCan')
 
 canvas.style.background = "white"
 // Sets the default mode to brush and painting to false
@@ -67,11 +69,15 @@ sizeOptions.forEach(function(sizeOption){
     }
 })
 
+// Sets the initial background colour to white
+canvas.style.background = 'white'
+
 //Event listeners
 eraser.addEventListener('click', eraseTrue)
 colourPicker.addEventListener('click', eraseFalse)
 eraser.addEventListener('click', clickShow)
 colourPicker.addEventListener('change', pickColour)
+clearCan.addEventListener('click', clearClicked)
 
 //Add event listeners to all the buttons
 buttons.forEach(function(button){
@@ -344,6 +350,18 @@ bgButton.addEventListener('change', bgChange)
  */
 function bgChange(){
     canvas.style.background = bgButton.value
+}
+
+/**
+ * Makes an alert pop up when you click the Clear Canvas button, if you select Ok, it clears the canvas
+ */
+function clearClicked(){
+    if (confirm("Are you sure you want to clear the canvas?")) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        ctxText.clearRect(0, 0, canvasTextC.width, canvasTextC.height)
+        sizePicker.disabled = false
+        bgButton.disabled = false
+    }
 }
 
 function sizeChange(e){
