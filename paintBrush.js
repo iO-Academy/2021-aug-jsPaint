@@ -16,6 +16,10 @@ const eraser = document.querySelector('.eraser')
 let texts = []
 //Holds the index (in the array) of the hit-selected text
 let selectedText = -1
+let startX
+let startY
+let mouseX
+let mouseY
 
 // Sets the default mode to brush and painting to false
 let mode = 'brush'
@@ -61,15 +65,15 @@ function drawText() {
     //Clear the canvas - using the above calculated width and height
     ctxText.clearRect(0, 0, canvasWidth, canvasHeight)
     //Loops through each item in the text array and uses the fill text function to add each text object to the canvas
-    for (var i = 0; i < texts.length; i++) {
-        var text = texts[i]
+    for (let i = 0; i < texts.length; i++) {
+        let text = texts[i]
         ctxText.fillText(text.text, text.x, text.y)
     }
 }
 
 //Test if the x,y is inside the bounding box of texts[textIndex]- if it has changed
 function textHittest(x, y, textIndex) {
-    var text = texts[textIndex]
+    let text = texts[textIndex]
     //returns a true or false statement
     return (x >= text.x && x <= text.x + text.width && y >= text.y - text.height && y <= text.y)
 }
@@ -77,17 +81,19 @@ function textHittest(x, y, textIndex) {
 //Iterates through the texts[] array and see's if the user clicked (mouseddown) on one of them
 //If yes, sets the selectedText to the index of that text
 function startPainting(e) {
-    //finds the users starting x and y position. parseint parses a string argument and returns an integer. ClientX -
-    //the x coordinate of where the mouse event happened in the viewport. offsetleft returns the left position relative
+    //finds the users starting x and y position. parseint parses a string argument and returns an integer. PageX -
+    //the x coordinate of where the mouse event happened in the DOCUMENT (works with scroll). offsetleft returns the left position relative
     //to the left side of the offsetParent element (nearest parent that has a position other than static.
-    startX = parseInt(e.clientX - canvasTextC.offsetLeft)
-    startY = parseInt(e.clientY - canvasTextC.offsetTop)
+    // startX = parseInt(e.clientX - canvasTextC.offsetLeft)
+    // startY = parseInt(e.clientY - canvasTextC.offsetTop)
+    startX = parseInt(e.pageX - canvasTextC.offsetLeft)
+    startY = parseInt(e.pageY - canvasTextC.offsetTop)
 
     console.log({startx: startX, starty: startY})
 
     //Itterates through the texts[] array to check if each piece of text has been moved. If true sets the selectedText
     //index to its index in the array
-    for (var i = 0; i < texts.length; i++) {
+    for (let i = 0; i < texts.length; i++) {
         if (textHittest(startX, startY, i)) {
             selectedText = i;
         }
@@ -132,8 +138,8 @@ function drawLine(event) {
         }
     } else {    //If text has been selected- handle the mousemove event
         //Calculate where the mouse now is
-        mouseX = parseInt(event.clientX - canvasTextC.offsetLeft)
-        mouseY = parseInt(event.clientY - canvasTextC.offsetTop)
+        mouseX = parseInt(event.pageX - canvasTextC.offsetLeft)
+        mouseY = parseInt(event.pageY - canvasTextC.offsetTop)
 
         //Calculate how far the mouse has moved since the last mouseevent
         let dx = mouseX - startX
@@ -161,7 +167,7 @@ document.querySelector('form').addEventListener('submit', e => {
     let textSubmitted = document.querySelector('input').value
 
     //Calc the y coordinate for this text on the canvas
-    var y = texts.length * 50 + 50
+    let y = texts.length * 50 + 50
 
     //Create a text object to contain the users text input and give the text a fixed position on the text canvas
     let textObj = {

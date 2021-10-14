@@ -27,7 +27,7 @@ main {
     text-align: center;
     width: 90vw;
     align-items: center;
-    overflow: auto;
+    /*overflow: auto;*/
     border: 20px solid #A45EE5;
 }
 
@@ -79,12 +79,17 @@ h1 {
 
 .canvasText {
     position: relative;
+    width: 1100px;
+    height: 600px;
+    border: 2px solid #000000;
+    cursor: crosshair;
     z-index:2;
     pointer-events: none;
 }
 
 .canvi {
     /*position: relative;*/
+    overflow: auto;
 }
 
 
