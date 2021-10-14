@@ -133,14 +133,13 @@ label:hover .toolTipText {
     height: auto;
 }
 
-.clicked.painter {
-    background-image: url('paintbrush.png');
+.clicked{
     border: black solid 5px;
 }
 
-.clicked.eraser {
-    background-image: url('eraser.png');
-    border: black solid 7px;
+.clicked.painter {
+    background-image: url('paintbrush.png');
+    border: black solid 5px;
 }
 
 @media only screen and (min-height: 640px) {
