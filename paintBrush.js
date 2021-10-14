@@ -22,6 +22,8 @@ const buttons = document.querySelectorAll('.button')
 const sizeOptions = document.querySelectorAll('#sizeForm > option')
 // Connects to <main>
 const main = document.querySelector('main')
+// Sets the connection to the colour picker
+const colourPicker = document.querySelector('#colourPicker')
 
 // Sets the default mode to brush and painting to false
 let painting = false
@@ -39,20 +41,12 @@ sizeOptions.forEach(function(sizeOption){
 })
 
 //Event listeners
-//Add event listeners to all the buttons
-buttons.forEach(function(button){
-    if(button.name === 'eraser'){
-        button.addEventListener('click', eraseTrue)
-    }else{
-        button.addEventListener('click', eraseFalse)
-    }
-    if(button.hasAttribute('data-colour')){
-        button.addEventListener('click', colourPicker)
-        button.innerHTML = "<p class='toolTipText'>" + button.name + ' brush!</p>'
-    }
-    button.addEventListener('click', clickShow)
-})
-//Adds event listeners to the canvas
+
+eraser.addEventListener('click', eraseTrue)
+colourPicker.addEventListener('click', eraseFalse)
+eraser.addEventListener('click', clickShow)
+colourPicker.addEventListener('change', pickColour)
+
 if (canvas) {
     // Add an event listener to draw a line on dragging the mouse
     canvas.addEventListener('mousemove', drawLine);
@@ -101,14 +95,30 @@ function startPainting() {
     painting = true;
 }
 
-/**
- * Changes colour mode when a colour button is selected
- *
- * @param e
- */
-function colourPicker(e){
-    colourMode = e.currentTarget.dataset.colour
-}
+//story 7
+document.querySelector('#textForm').addEventListener('submit', e => {
+
+    e.preventDefault()
+    // created a variable to contain the users text input
+    let text = document.querySelector('#text').value
+    ctx.font = '50px "Hiragino Maru Gothic Pro"'
+    //create a fill text function that places the users text input at a set
+    //place on the canvas
+    ctx.fillText(text, 10, 50)
+})
+
+//when the text button is clicked, it should reveal the text input
+document.querySelector('.text').addEventListener('click', e => {
+    e.preventDefault()
+    document.querySelector('#text').setAttribute('type', 'text')
+    document.querySelector('#submit').setAttribute('type', 'submit')
+})
+
+
+sizePicker.addEventListener('change', sizeChange)
+canvas.width = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.width)
+canvas.height = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.height)
+
 
 /**
  * Changes size of canvas
@@ -127,10 +137,12 @@ function sizeChange(e){
  */
 
 
+function pickColour(){
+    colourMode = colourPicker.value
+}
+
 function clickShow(e){
-    buttons.forEach(function(button){
-        button.classList.remove('clicked')
-    })
+    eraser.classList.remove('clicked')
     e.currentTarget.classList.add('clicked')
 }
 
@@ -159,4 +171,12 @@ function drawLine(event) {
         }
         ctx.stroke()
     }
+}
+
+let bgButton = document.querySelector('#bgColour')
+
+bgButton.addEventListener('change', bgChange)
+
+function bgChange(){
+    canvas.style.background = bgButton.value
 }

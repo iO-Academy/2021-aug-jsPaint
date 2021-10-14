@@ -11,7 +11,7 @@
 <body>
 <div class="toolbarWrap">
     <div class="toolbar">
-        <label for="sizeForm">Select size:
+        <label for="sizeForm" id="sfLabel">Select size:
             <p class="toolTipText">Please enlarge your page for the larger options!</p>
         </label>
         <select class="sizeForm" id="sizeForm">
@@ -19,14 +19,16 @@
             <option data-width="800" data-height="500">Medium</option>
             <option data-width="1200" data-height="700">Large</option>
         </select>
-        <button class="button black painter clicked" data-colour="#000000" name="black"></button>
-        <button class="button red painter" data-colour="#ff0000" name="red"></button>
-        <button class="button blue painter" data-colour="#0000ff" name="blue"></button>
-        <button class="button green painter" data-colour="#008000" name="green"></button>
-        <button class="button yellow painter" data-colour="#ffff00" name="yellow"></button>
-        <button class="button orange painter" data-colour="#ffa500" name="orange"></button>
         <button class="button eraser" name="eraser"><p class="toolTipText">Erase stuff from the canvas!</p></button>
         <button class="button text" id="textButton" name="text">
+        <button class="mode eraser" name="eraser"><p class="toolTipText">Erase stuff from the canvas!</p></button>
+        <label for="colourPicker"> Pick your brush!
+            <input type="color" id="colourPicker" value="#000000" />
+        </label>
+        <label for="bgColour"> Pick your background colour!
+            <input type="color" id="bgColour" value="#FFFFFF" />
+        </label>
+        <button class="text" name="text">
             <p class="toolTipText">Type in text and submit it to add it to the canvas!</p>
         </button>
         <form id="textForm" class="textForm">
