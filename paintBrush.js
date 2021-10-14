@@ -182,9 +182,14 @@ function bgChange(){
 }
 
 
+/**
+ * Makes an alert pop up when you click the Clear Canvas button, if you select Ok, it clears the canvas
+ */
 function clearClicked(){
     if (confirm("Are you sure you want to clear the canvas?")) {
         ctx.clearRect(0, 0, canvas.width, canvas.height)
+        sizePicker.disabled = false
+        bgButton.disabled = false
     }
 }
 
