@@ -174,8 +174,9 @@ function drawLine(event) {
 
 bgButton.addEventListener('change', bgChange)
 
+/**
+ * Changes to colour of the canvas to the colour selected on the background button
+ */
 function bgChange(){
     canvas.style.background = bgButton.value
 }
-
-console.log(bgButton)
