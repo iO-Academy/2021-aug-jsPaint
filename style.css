@@ -68,6 +68,7 @@ input {
     background-image: url('eraser.png');
     background-color: #FFFFFF;
 }
+
 .red {
     background-color: #ff0000;
 }
@@ -98,7 +99,7 @@ h1 {
     overflow: hidden;
 }
 
-.sizeForm{
+.sizeForm {
     margin: 1vw;
     text-align: center;
 }
@@ -114,7 +115,6 @@ h1 {
     position: relative;
     left: 150px;
     z-index: 1;
-
 }
 
 label:hover .toolTipText {
@@ -133,14 +133,13 @@ label:hover .toolTipText {
     height: auto;
 }
 
-.clicked.painter {
-    background-image: url('paintbrush.png');
+.clicked{
     border: black solid 5px;
 }
 
-.clicked.eraser {
-    background-image: url('eraser.png');
-    border: black solid 7px;
+.clicked.painter {
+    background-image: url('paintbrush.png');
+    border: black solid 5px;
 }
 
 @media only screen and (min-height: 640px) {
