@@ -1,23 +1,18 @@
-// Select the canvas in the dom for the paint canvas
-const canvas = document.querySelector('.canvas')
-// Sets the canvas to 2D drawing
-const ctx = canvas.getContext('2d')
 // Select the canvas in the dom for the text canvas
 const canvasTextC = document.querySelector('.canvasText')
 // Sets the canvas to 2D drawing
 const ctxText = canvasTextC.getContext('2d')
-// Sets the connection to paintbrush button
-const paintbrush = document.querySelector('.painter')
-// Sets the connection to the eraser button
-const eraser = document.querySelector('.eraser')
 //Sets the connection to the text input form
-const formText = document.querySelector('#formText')
+const formText = document.querySelector('#textForm')
 //Sets the connection to the text button
 const textButton = document.querySelector('#textButton')
 //Sets the connection to input
-const textInput = document.querySelector('#text')
+const textInput = document.querySelector('#textInput')
 //Sets the connection to the text form submit
-const textSubmit = document.querySelector('#submit')
+const textSubmit = document.querySelector('#textSubmit')
+//Sets the connection to canvi
+const canvi = document.querySelector('.canvi')
+
 
 //Create a texts array to hold text objects
 let texts = []
@@ -28,21 +23,60 @@ let startY
 let mouseX
 let mouseY
 
+
+// Variables
+
+// Select the canvas in the dom
+const canvas = document.querySelector('canvas')
+// Sets the canvas to 2D drawing
+const ctx = canvas.getContext('2d')
+// Sets the connection to the eraser button
+const eraser = document.querySelector('.eraser')
+// Sets the connection to the canvas size menu
+const sizePicker = document.querySelector('#sizeForm')
+// Connects to the text-box form
+const textForm = document.querySelector('#textForm')
+// Connects to all the buttons in the toolbar
+const buttons = document.querySelectorAll('.button')
+// Sets a connection to all the canvas size options
+const sizeOptions = document.querySelectorAll('#sizeForm > option')
+// Connects to <main>
+const main = document.querySelector('main')
+
 // Sets the default mode to brush and painting to false
-let mode = 'brush'
 let painting = false
+let eraseMode = false
+let colourMode = 'black'
 
-// Adds an event listener which updates mode to brush on clicking brush button
-paintbrush.addEventListener('click', function () {
-    mode = 'brush'
+//Sets canvas width and height to small
+canvas.width = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.width)
+canvas.height = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.height)
+canvasTextC.width = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.width)
+canvasTextC.height = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.height)
+canvi.style.width = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.width) + 'px'
+canvi.style.height = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.height) + 'px'
+// Disables canvas size options that are bigger than your viewport
+sizeOptions.forEach(function(sizeOption){
+    if(main.scrollWidth < sizeOption.dataset.width || main.scrollHeight < sizeOption.dataset.height) {
+        sizeOption.disabled = true
+    }
 })
 
-// Adds an event listener which updates mode to eraser on clicking eraser button
-eraser.addEventListener('click', function () {
-    mode = 'eraser'
+//Event listeners
+//Add event listeners to all the buttons
+buttons.forEach(function(button){
+    if(button.name === 'eraser'){
+        button.addEventListener('click', eraseTrue)
+    }else{
+        button.addEventListener('click', eraseFalse)
+    }
+    if(button.hasAttribute('data-colour')){
+        button.addEventListener('click', colourPicker)
+        button.innerHTML = "<p class='toolTipText'>" + button.name + ' brush!</p>'
+    }
+    button.addEventListener('click', clickShow)
 })
-
-// If there is a canvas
+//Adds event listeners to the canvas
 if (canvas) {
     // Add an event listener to draw a line on dragging the mouse
     canvas.addEventListener('mousemove', drawLine)
@@ -99,6 +133,67 @@ function startText(e) {
             selectedText = i;
         }
     }
+}
+
+//when the text button is clicked, it should reveal the text input
+textButton.addEventListener('click', e => {
+    e.preventDefault()
+    textInput.setAttribute('type', 'text')
+    textSubmit.setAttribute('type', 'submit')
+})
+// Adds event listener to the canvas size menu
+sizePicker.addEventListener('change', sizeChange)
+
+//Functions
+
+// Functions to stop and start painting, and erasing
+function stopPainting() {
+    painting = false;
+}
+
+function eraseTrue() {
+    eraseMode = true;
+}
+
+function eraseFalse() {
+    eraseMode = false;
+}
+
+function startPainting() {
+    painting = true;
+}
+
+/**
+ * Changes colour mode when a colour button is selected
+ *
+ * @param e
+ */
+function colourPicker(e){
+    colourMode = e.currentTarget.dataset.colour
+}
+
+/**
+ * Changes size of canvas
+ *
+ * @param e
+ */
+function sizeChange(e){
+    canvas.width = parseInt(e.currentTarget.options[e.currentTarget.selectedIndex].dataset.width)
+    canvas.height = parseInt(e.currentTarget.options[e.currentTarget.selectedIndex].dataset.height)
+}
+
+/**
+ * Sets a class to a button so that when it is clicked the button gets a thick black outline
+ *
+ * @param e
+ */
+
+
+function clickShow(e){
+    buttons.forEach(function(button){
+        button.classList.remove('clicked')
+    })
+    e.currentTarget.classList.add('clicked')
 }
 
 function stopText() {
@@ -181,25 +276,28 @@ function drawLine(event) {
         ctx.beginPath()
         ctx.moveTo(event.offsetX, event.offsetY)
     } else {
+        if (!sizePicker.disabled) {
+            sizePicker.disabled = true
+        }
         // When painting, draw a line to...
         ctx.lineTo(event.offsetX, event.offsetY)
-        // If the mode is set to brush, draw in black
-        if (mode === 'brush') {
-            ctx.strokeStyle = '#000000'
+
+        if(eraseMode === true){
+            ctx.strokeStyle = 'white'
+            ctx.lineWidth = 20
+        } else if(colourMode) {
+            ctx.strokeStyle = colourMode
             ctx.lineWidth = 5
-            // if the mode is set to eraser, draw white lines
-        } else if (mode === 'eraser') {
-            ctx.strokeStyle = '#FFFFFF'
-            ctx.lineWidth = 15
         }
         ctx.stroke()
     }
 }
 
-function startPainting() {
-    painting = true
-}
-
-function stopPainting() {
-    painting = false
+function sizeChange(e){
+    canvas.width = parseInt(e.currentTarget.options[e.currentTarget.selectedIndex].dataset.width)
+    canvas.height = parseInt(e.currentTarget.options[e.currentTarget.selectedIndex].dataset.height)
+    canvasTextC.width = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.width)
+    canvasTextC.height = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.height)
+    canvi.style.width = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.width) + 'px'
+    canvi.style.height = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.height) + 'px'
 }

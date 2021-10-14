@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+    font-family: "Hiragino Maru Gothic Pro", sans-serif;
 }
 
 body,
@@ -16,11 +17,18 @@ body  {
     background-color: #A45EE5;
 }
 
+label {
+    color: #FFFFFF;
+    text-align: center;
+    height: 15px;
+    margin: 5%;
+}
+
 .toolbar {
     background-color: #0000FF;
     width: 150px;
-    padding: 10vw 0;
-    height: 100vh;
+    padding: 15px 0;
+    height: 100%;
 }
 
 main {
@@ -32,8 +40,6 @@ main {
 
 .canvas {
     background-color: #FFFFFF;
-    width: 1100px;
-    height: 600px;
     border: 2px solid #000000;
     cursor: crosshair;
     position: absolute;
@@ -41,15 +47,12 @@ main {
 }
 
 button {
-    padding: 0 1vw;
-    min-height: 50px;
+    padding: 0 5px;
+    height: 40px;
     background-color: #FFFFFF;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-}
-
-button{
     margin: 10%;
 }
 
@@ -58,12 +61,33 @@ input {
     margin: 10%;
 }
 
-.painter {
-    background-image: url('paintbrush.png');
+.black {
+    background-color: #000000;
 }
 
 .eraser {
     background-image: url('eraser.png');
+    background-color: #FFFFFF;
+}
+
+.red {
+    background-color: #ff0000;
+}
+
+.blue {
+    background-color: #0000FF;
+}
+
+.green {
+    background-color: #008000;
+}
+
+.yellow {
+    background-color: #ffff00;
+}
+
+.orange {
+    background-color: #ffa500;
 }
 
 .text {
@@ -71,24 +95,64 @@ input {
 }
 
 h1 {
-    font-family: "Hiragino Maru Gothic Pro";
+    font-family: "Hiragino Maru Gothic Pro", sans-serif;
     color: #FFFFFF;
     overflow: hidden;
 }
 
 .canvasText {
     position: relative;
-    width: 1100px;
-    height: 600px;
     border: 2px solid #000000;
     cursor: crosshair;
     z-index:2;
     pointer-events: none;
 }
 
-.canvi {
-    overflow: auto;
+.sizeForm {
+    margin: 1vw;
+    text-align: center;
 }
 
+.toolTipText {
+    height: 0;
+    overflow: hidden;
+    width: 120px;
+    border-radius: 10px;
+    background-color: black;
+    color: #FFFFFF;
+    text-align: center;
+    position: relative;
+    left: 150px;
+    z-index: 1;
+}
 
+label:hover .toolTipText {
+    height: auto;
+}
 
+.text:hover .toolTipText {
+    height: auto;
+}
+
+.painter:hover .toolTipText {
+    height: auto;
+}
+
+.eraser:hover .toolTipText {
+    height: auto;
+}
+
+.clicked{
+    border: black solid 5px;
+}
+
+.clicked.painter {
+    background-image: url('paintbrush.png');
+    border: black solid 5px;
+}
+
+@media only screen and (min-height: 640px) {
+    .toolbar{
+        height: 100vh;
+    }
+}
