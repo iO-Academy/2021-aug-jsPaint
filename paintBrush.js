@@ -12,7 +12,8 @@ const textInput = document.querySelector('#textInput')
 const textSubmit = document.querySelector('#textSubmit')
 //Sets the connection to canvi
 const canvi = document.querySelector('.canvi')
-
+//Sets the connection to the print button
+const print = document.querySelector('.print')
 
 //Create a texts array to hold text objects
 let texts = []
@@ -265,7 +266,18 @@ textButton.addEventListener('click', e => {
     textSubmit.setAttribute('type', 'submit')
 })
 
-
+print.addEventListener('click', e => {
+    e.preventDefault()
+    // Create a window object
+    let win = window.open('', '', 'height=700,width=700')
+    //display the contents of the canvas as an image in the window
+    win.document.write("<div style='position:relative'></div><br><img src = '"+canvas.toDataURL()+"'/><img src = '"+canvasTextC.toDataURL()+"' style='position: absolute; left: 0;'/></div>")
+    // Print the contents of the window then close it
+    win.setTimeout(() => {
+        win.print()
+        win.close()
+    }, 0)
+})
 
 /** Function to disconnect lines when not painting, paint where mouse is when clicking down
  * Dependant on mode set, use black for brush and white for eraser

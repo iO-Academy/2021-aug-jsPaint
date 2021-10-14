@@ -94,6 +94,10 @@ input {
     background-image: url('text.png');
 }
 
+.print {
+    background-image: url('print.png');
+}
+
 h1 {
     font-family: "Hiragino Maru Gothic Pro", sans-serif;
     color: #FFFFFF;

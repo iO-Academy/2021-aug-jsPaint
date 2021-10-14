@@ -33,6 +33,7 @@
             <input type="hidden" id="textInput" />
             <input type="hidden" id="textSubmit" />
         </form>
+        <button class="print"></button>
     </div>
 </div>
     <main>
