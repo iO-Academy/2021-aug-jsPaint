@@ -12,7 +12,9 @@ const paintbrush = document.querySelector('.painter')
 // Sets the connection to the eraser button
 const eraser = document.querySelector('.eraser')
 
+//Create a texts array to hold text objects
 let texts = []
+//Holds the index (in the array) of the hit-selected text
 let selectedText = -1
 
 // Sets the default mode to brush and painting to false
@@ -51,34 +53,47 @@ if (canvasTextC) {
     canvasTextC.addEventListener('mouseleave', stopPainting)
 }
 
+//Draw text clears the canvas and redraws it based on the text array
 function drawText() {
+    //Find the canvas height and width from the canvasText html
     let canvasWidth = document.querySelector('.canvasText').getAttribute('width')
     let canvasHeight = document.querySelector('.canvasText').getAttribute('height')
+    //Clear the canvas - uses the above calculated width and height
     ctxText.clearRect(0, 0, canvasWidth, canvasHeight)
-    // ctxText.clearRect(0, 0, canvasTextC.width, canvasTextC.height)
-    for (var i = 0; i< texts.length; i++) {
+    //Loops through each item in the text array and uses the fill text function to add each text object to the canvas
+    for (var i = 0; i < texts.length; i++) {
         var text = texts[i]
         ctxText.fillText(text.text, text.x, text.y)
     }
 }
 
+//Test if the x,y is inside the bounding box of texts[textIndex]- if it has changed
 function textHittest(x, y, textIndex) {
     var text = texts[textIndex]
+    //returns a true or false statement
     return (x >= text.x && x <= text.x + text.width && y >= text.y - text.height && y <= text.y)
 }
 
+//Iterates through the texts[] array and see's if the user clicked (mouseddown) on one of them
+//If yes, sets the selectedText to the index of that text
 function startPainting(e) {
+    //finds the users starting x and y position. parseint parses a string argument and returns an integer. ClientX
+    //the x coordinate of where the mouse event happened in the viewport. offsetleft returns the left position relative
+    //to the left side of the offsetParent element (nearest parent that has a position other than static.
     startX = parseInt(e.clientX - canvasTextC.offsetLeft)
     startY = parseInt(e.clientY - canvasTextC.offsetTop)
 
     console.log({startx: startX, starty: startY})
 
+    //itterates through the texts[] array to check if each piece of text has been moved. If true sets the selectedText
+    //index to its index in the array
     for (var i = 0; i < texts.length; i++) {
         if (textHittest(startX, startY, i)) {
             selectedText = i;
         }
     }
 
+    //if no text has been moved, sets painting to true
     if (selectedText === -1) {
         painting = true
     }
@@ -95,6 +110,7 @@ function stopPainting() {
  * @param event
  */
 function drawLine(event) {
+    //if the no text has been selected either paint or erase
     if (selectedText < 0) {
         if (!painting) {
             // When not painting, begin a new path
@@ -114,28 +130,26 @@ function drawLine(event) {
             }
             ctx.stroke()
         }
-    } else {
+    } else {    //if text has been selected- handle the mousemove event
+        //Calculate where the mouse now is
         mouseX = parseInt(event.clientX - canvasTextC.offsetLeft)
         mouseY = parseInt(event.clientY - canvasTextC.offsetTop)
 
+        //Calculate how far the mouse has moved since the last mouseevent
         let dx = mouseX - startX
         let dy = mouseY - startY
+        //Set the mouse start values to the last mouse position
         startX = mouseX
         startY = mouseY
 
+        //find the text item being moved in the texts[] array
         let text = texts[selectedText]
 
-        // ctxText.font = '51px "Hiragino Maru Gothic Pro"'
-        // ctxText.fillStyle = '#ffffff'
-        // ctxText.shadowColor = 'rgba(0,0,0,0)'
-        // ctxText.fillText(text.text, text.x, text.y)
-
+        //Add the new x and y positions to the array
         text.x += dx
         text.y += dy
+        //redraw the text canvas
         drawText()
-
-        // ctxText.fillStyle = '#000000'
-        // ctxText.fillText(text.text, text.x, text.y)
     }
 }
 
@@ -143,27 +157,32 @@ function drawLine(event) {
 document.querySelector('form').addEventListener('submit', e => {
 
     e.preventDefault()
+    //Create a variable to contain the users text input
     let textSubmitted = document.querySelector('input').value
 
+    //Create a text object to contain the users text input and give the text a fixed position on the text canvas
     let textObj = {
         text: textSubmitted,
         x: 10,
         y: 50
     }
 
-    // created a variable to contain the users text input
+    //Set the font of the text
     ctxText.font = '50px "Hiragino Maru Gothic Pro"'
+
+    //Calculate the size of the text for hit-testing purposes (checking whether the text has moved)
     textObj.width = ctxText.measureText(text.text).width
     textObj.height = 50
 
+    //Add the text object to the texts array
     texts.push(textObj)
-    //create a fill text function that places the users text input at a set
-    //place on the canvas
-    // ctxText.fillText(text, 10, 50)
+
+    //Redraw the text canvas
     drawText()
 })
 
-//when the text button is clicked, it should reveal the text input
+//when the text button is clicked, the text input and submit button are revealed and the pointer events on the text
+// canvas is changed from none to auto and the paint canvas from auto to none.
 document.querySelector('.text').addEventListener('click', e => {
     e.preventDefault()
     document.querySelector('#text').setAttribute('type', 'text')
@@ -171,165 +190,3 @@ document.querySelector('.text').addEventListener('click', e => {
     document.querySelector(".canvasText").style.pointerEvents =  "auto"
     document.querySelector(".canvas").style.pointerEvents = "none"
 })
-
-
-
-
-
-
-
-//
-// //variables used to get the mouse position on the canvas
-// let canvasTextOffset = canvasTextC.offset()
-// let offsetX = canvasTextOffset.left
-// let offsetY= canvasTextOffset.top
-// //left the scroll properties out
-//
-// //Create variables to save the last mouse position
-// //Used to see how far the user dragged the mouse
-// //and then move the text by that distance
-// let startX
-// let startY
-//
-// //Create an array to store the text objects
-// let texts = []
-//
-// //Variable to hold the index of the hit-selected text
-// let selectedText = -1
-//
-// function draw(texts) {
-//     ctxText.clearRect(0, 0, canvasTextC.width, canvasTextC.height)
-//     for (let i = 0; i < texts.length; i++) {
-//         let text = texts[i];
-//         ctxText.fillText(text.text, text.x, text.y);
-//     }
-// }
-
-
-
-
-
-
-//
-// // variables used to get mouse position on the canvas
-// const $canvasTextC = document.querySelector('.canvasText');
-// const canvasTextCOffset = $canvasTextC.offset();
-// const offsetX = canvasTextCOffset.left;
-// const offsetY = canvasTextCOffset.top;
-// const scrollX = $canvasTextC.scrollLeft();
-// const scrollY = $canvasTextC.scrollTop();
-//
-// // variables to save last mouse position
-// // used to see how far the user dragged the mouse
-// // and then move the text by that distance
-// let startX;
-// let startY;
-//
-// // an array to hold text objects
-// const texts = [];
-//
-// // this var will hold the index of the hit-selected text
-// let selectedText = -1;
-//
-// // clear the canvas & redraw all texts
-// function draw() {
-//     ctxText.clearRect(0, 0, canvasTextC.width, canvasTextC.height);
-//     for (let i = 0; i < texts.length; i++) {
-//         const text = texts[i];
-//         ctxText.fillText(text.text, text.x, text.y);
-//     }
-// }
-//
-// // test if x,y is inside the bounding box of texts[textIndex]
-// function textHittest(x, y, textIndex) {
-//     const text = texts[textIndex];
-//     return (x >= text.x && x <= text.x + text.width && y >= text.y - text.height && y <= text.y);
-// }
-//
-// // handle mousedown events
-// // iterate through texts[] and see if the user
-// // mousedown'ed on one of them
-// // If yes, set the selectedText to the index of that text
-// function handleMouseDown(e) {
-//     e.preventDefault();
-//     startX = parseInt(e.clientX - offsetX);
-//     startY = parseInt(e.clientY - offsetY);
-//     // Put your mousedown stuff here
-//     for (let i = 0; i < texts.length; i++) {
-//         if (textHittest(startX, startY, i)) {
-//             selectedText = i;
-//         }
-//     }
-// }
-//
-// // done dragging
-// function handleMouseUp(e) {
-//     e.preventDefault();
-//     selectedText = -1;
-// }
-//
-// // also done dragging
-// function handleMouseOut(e) {
-//     e.preventDefault();
-//     selectedText = -1;
-// }
-//
-// // handle mousemove events
-// // calc how far the mouse has been dragged since
-// // the last mousemove event and move the selected text
-// // by that distance
-// function handleMouseMove(e) {
-//     if (selectedText < 0) {
-//         return;
-//     }
-//     e.preventDefault();
-//     mouseX = parseInt(e.clientX - offsetX);
-//     mouseY = parseInt(e.clientY - offsetY);
-//
-//     // Put your mousemove stuff here
-//     const dx = mouseX - startX;
-//     const dy = mouseY - startY;
-//     startX = mouseX;
-//     startY = mouseY;
-//
-//     const text = texts[selectedText];
-//     text.x += dx;
-//     text.y += dy;
-//     draw();
-// }
-//
-// // listen for mouse events
-// document.querySelector('.canvasText').addEventListener('mousedown', handleMouseDown)
-//
-// document.querySelector('.canvasText').addEventListener('mousemove', handleMouseMove)
-//
-// document.querySelector('.canvasText').addEventListener('mouseup', handleMouseUp)
-//
-// document.querySelector('.canvasText').addEventListener('mouseleave', handleMouseOut)
-//
-//
-// document.querySelector('form').addEventListener('submit', function() {
-//
-//     // calc the y coordinate for this text on the canvas
-//     const y = texts.length * 20 + 20;
-//
-//     // get the text from the input element
-//     const text = {
-//         text: document.querySelector('input').value,
-//         x: 20,
-//         y: y
-//     };
-//
-//     // calc the size of this text for hit-testing purposes
-//     ctxText.font = "16px verdana";
-//     text.width = ctxText.measureText(text.text).width;
-//     text.height = 16;
-//
-//     // put this new text in the texts array
-//     texts.push(text);
-//
-//     // redraw everything
-//     draw();
-//
-// })
-
