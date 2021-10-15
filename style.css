@@ -173,10 +173,6 @@ label:hover .toolTipText {
     background-image: url('paintbrush.png');
 }
 
-.clicked{
-    border: black solid 5px;
-}
-
 .disabled {
     opacity: 0.5;
 }

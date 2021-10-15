@@ -204,25 +204,13 @@ function pickColour() {
     colourMode = colourPicker.value
 }
 
-function clickShow(e) {
-    eraser.classList.remove('clicked')
+function clickShow(e){
+    buttons.forEach(function(button){
+        button.classList.remove('clicked')
+    })
     e.currentTarget.classList.add('clicked')
 }
 
-// let bgCount = 0
-//
-// function backgroundOptions(){
-//  canvas.style.background = coloursarray[bgCount]
-// }
-
-// function backgroundChange(){
-//     if(bgCount === 6){
-//         bgCount = 0
-//     }else{
-//         bgCount += 1
-//     }
-//     backgroundOptions()
-// }
 
 /**
  * Function to stop adding and moving text
