@@ -359,6 +359,7 @@ function clearClicked(){
     if (confirm("Are you sure you want to clear the canvas?")) {
         ctx.clearRect(0, 0, canvas.width, canvas.height)
         ctxText.clearRect(0, 0, canvasTextC.width, canvasTextC.height)
+        texts = []
         sizePicker.disabled = false
         bgButton.disabled = false
     }
