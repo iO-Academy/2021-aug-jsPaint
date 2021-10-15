@@ -204,8 +204,10 @@ function pickColour() {
     colourMode = colourPicker.value
 }
 
-function clickShow(e) {
-    eraser.classList.remove('clicked')
+function clickShow(e){
+    buttons.forEach(function(button){
+        button.classList.remove('clicked')
+    })
     e.currentTarget.classList.add('clicked')
 }
 
