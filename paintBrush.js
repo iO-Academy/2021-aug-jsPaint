@@ -54,6 +54,7 @@ canvas.style.background = "white"
 let painting = false
 let eraseMode = false
 let colourMode = 'black'
+let eraseColour = 'white'
 
 //Sets canvas width and height to small
 canvas.width = parseInt(sizePicker.options[sizePicker.selectedIndex].dataset.width)
@@ -70,7 +71,7 @@ sizeOptions.forEach(function(sizeOption){
 })
 
 // Sets the initial background colour to white
-canvas.style.background = 'white'
+canvas.style.background= 'white'
 
 //Event listeners
 eraser.addEventListener('click', eraseTrue)
@@ -321,7 +322,7 @@ function drawLine(event) {
         ctx.lineTo(event.offsetX, event.offsetY)
 
         if(eraseMode === true){
-            ctx.strokeStyle = canvas.style.background
+            ctx.strokeStyle = eraseColour
             ctx.lineWidth = 20
         } else if(colourMode) {
             ctx.strokeStyle = colourMode
@@ -338,6 +339,7 @@ bgButton.addEventListener('change', bgChange)
  */
 function bgChange(){
     canvas.style.background = bgButton.value
+    eraseColour = bgButton.value
 }
 
 /**
