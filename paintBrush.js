@@ -209,20 +209,6 @@ function clickShow(e) {
     e.currentTarget.classList.add('clicked')
 }
 
-// let bgCount = 0
-//
-// function backgroundOptions(){
-//  canvas.style.background = coloursarray[bgCount]
-// }
-
-// function backgroundChange(){
-//     if(bgCount === 6){
-//         bgCount = 0
-//     }else{
-//         bgCount += 1
-//     }
-//     backgroundOptions()
-// }
 
 /**
  * Function to stop adding and moving text
